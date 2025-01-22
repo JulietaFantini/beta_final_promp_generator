@@ -1,43 +1,44 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from googletrans import Translator
 from prompt_generator import PromptGenerator
 
 def boton_copiar(text, label="Copiar texto"):
     """
-    Muestra un botón que, al hacer clic, copia 'text'
-    al portapapeles del navegador usando JavaScript.
+    Muestra un botón (mediante st.components.html) que, al hacer clic,
+    copia 'text' al portapapeles del navegador.
     """
-    import uuid
-    # 1. Reemplazar comillas simples, dobles y saltos de línea
+    # Escapar caracteres conflictivos para incrustar en HTML + JavaScript
     text_escaped = (
         text
-        .replace("\\", "\\\\")   # primero escapamos las barras invertidas
-        .replace("\n", "\\n")    # luego saltos de línea
-        .replace("'", "\\'")     # luego comillas simples
-        .replace('"', '\\"')     # luego comillas dobles
+        .replace("\\", "\\\\")
+        .replace("\n", "\\n")
+        .replace("'", "\\'")
+        .replace('"', '\\"')
     )
-    btn_id = str(uuid.uuid4()).replace('-', '')
 
-    # 2. Código HTML+JS: onclick invoca 'navigator.clipboard.writeText()'
+    # HTML con un botón que llama a navigator.clipboard.writeText(...)
+    # Al hacer clic, se muestra una alerta o un aviso de copiado exitoso
     html_code = f"""
-        <button id="copy-btn-{btn_id}"
-                onclick="navigator.clipboard.writeText('{text_escaped}');
-                         var tooltip = document.getElementById('tooltip-{btn_id}');
-                         tooltip.innerHTML = '¡Copiado!';
+    <html>
+    <head></head>
+    <body>
+        <button onclick="navigator.clipboard.writeText('{text_escaped}');
+                         alert('¡Texto copiado al portapapeles!');
                 "
-                style="cursor:pointer;"
-        >
+                style="cursor:pointer;">
             {label}
         </button>
-        <span id="tooltip-{btn_id}" style="margin-left:8px;color:green"></span>
+    </body>
+    </html>
     """
 
-    # 3. Renderizar HTML (no mostrarlo como texto)
-    st.markdown(html_code, unsafe_allow_html=True)
+    # st.components.v1.html 'inyecta' este HTML/JS en un iframe
+    components.html(html_code, height=40)
 
 
 def configurar_pantalla2():
-    # Validar que los parámetros de Pantalla 1 existan
+    # Verificar si se proporcionaron datos de la Pantalla 1
     if "params" not in st.session_state or not st.session_state["params"]:
         st.warning("No se han proporcionado datos de la Pantalla 1. Volvé y completá los campos obligatorios.")
         if st.button("Volver a Pantalla 1"):
@@ -45,7 +46,7 @@ def configurar_pantalla2():
             st.experimental_rerun()
         return
 
-    # Inicializar el prompt si no está en el estado de sesión
+    # Generar el prompt si no está en session_state
     if "prompt_editado" not in st.session_state:
         generator = PromptGenerator()
         st.session_state["prompt_editado"] = generator.generar_prompt(st.session_state["params"])
@@ -59,15 +60,14 @@ def configurar_pantalla2():
 
     st.divider()
 
-    # Sección para copiar en español
+    # Copiar en español
     st.subheader("¿Querés copiarlo en español?")
-    # IMPORTANTE: primero el texto, segundo el label
     boton_copiar(
         text=st.session_state["prompt_editado"], 
         label="📋 Copiar en español"
     )
 
-    # Sección para traducir y copiar al inglés
+    # Traducir y copiar al inglés
     st.subheader("¿Preferís usarlo en inglés?")
     st.markdown(
         "Algunas herramientas funcionan mejor con prompts en inglés. "
@@ -82,6 +82,7 @@ def configurar_pantalla2():
                     st.session_state["prompt_editado"], src='es', dest='en'
                 ).text
                 st.session_state["traduccion_ingles"] = traduccion
+
                 st.text_area(
                     "Traducción al inglés:", 
                     value=traduccion, 
@@ -93,7 +94,6 @@ def configurar_pantalla2():
         else:
             st.warning("El texto está vacío. No hay nada que traducir.")
 
-    # Mostrar botón para copiar la traducción si ya se generó
     if "traduccion_ingles" in st.session_state:
         boton_copiar(
             text=st.session_state["traduccion_ingles"], 
@@ -108,11 +108,11 @@ def configurar_pantalla2():
         """
         Estas son las principales herramientas donde podés pegar tu prompt generado para crear imágenes:
         
-        - [**DALL-E**](https://openai.com/dall-e)
-        - [**MidJourney**](https://www.midjourney.com)
-        - [**Grok**](https://x.com/i/grok?focus=1&mx=2)
-        - [**Claude**](https://claude.ai/new)
-        - [**Copilot**](https://copilot.microsoft.com/chats/TdFWATF4rK5SLC6Lfo3qN)
+        - [**DALL-E**](https://openai.com/dall-e): Pegá tu prompt para generar imágenes con precisión **realista**.
+        - [**MidJourney**](https://www.midjourney.com): Usalo para crear arte **detallado** y estético.
+        - [**Grok**](https://x.com/i/grok?focus=1&mx=2): Aplicá tu prompt para conectarte con tendencias actuales en redes sociales.
+        - [**Claude**](https://claude.ai/new): Pegalo para analizar y mejorar resultados complejos.
+        - [**Copilot**](https://copilot.microsoft.com/chats/TdFWATF4rK5SLC6Lfo3qN): Una herramienta para potenciar la generación rápida de imágenes.
         """
     )
 
@@ -133,7 +133,8 @@ def configurar_pantalla2():
     )
 
 # --------------------------------------------------------------------------------
-# Ejecución local para pruebas
+# Ejecución local de prueba
 # --------------------------------------------------------------------------------
 if __name__ == "__main__":
     configurar_pantalla2()
+
