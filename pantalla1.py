@@ -19,14 +19,22 @@ def configurar_pantalla1():
 
     params = st.session_state.get("params", {})
 
+    def render_selectbox(label, key, opciones, descripciones):
+        """
+        Renderiza un selectbox y muestra una descripción opcional.
+        """
+        params[key] = st.selectbox(label, ["Elegí una opción..."] + opciones)
+        if params[key] != "Elegí una opción...":
+            st.markdown(descripciones.get(params[key], ""))
+
     # Tipo de Imagen
     st.subheader("¿Qué tipo de imagen querés?")
-    params["tipo_de_imagen"] = st.selectbox(
+    render_selectbox(
         "Tipo de Imagen",
-        ["Elegí una opción..."] + list(TIPO_IMAGEN_DESCRIPCIONES.keys())
+        "tipo_de_imagen",
+        list(TIPO_IMAGEN_DESCRIPCIONES.keys()),
+        TIPO_IMAGEN_DESCRIPCIONES
     )
-    if params["tipo_de_imagen"] != "Elegí una opción...":
-        st.markdown(TIPO_IMAGEN_DESCRIPCIONES.get(params["tipo_de_imagen"], ""))
 
     # Idea Inicial
     st.subheader("¿Qué te imaginás?")
@@ -38,95 +46,95 @@ def configurar_pantalla1():
 
     # Propósito y Subpropósito
     st.subheader("Propósito de la Imagen")
-    params["proposito_categoria"] = st.selectbox(
+    render_selectbox(
         "Seleccioná un propósito:",
-        ["Elegí una opción..."] + list(PROPUESTA_PROPOSITO.keys())
+        "proposito_categoria",
+        list(PROPUESTA_PROPOSITO.keys()),
+        {}
     )
     if params["proposito_categoria"] != "Elegí una opción...":
         subpropositos = PROPUESTA_PROPOSITO[params["proposito_categoria"]]
-        params["subproposito"] = st.selectbox(
+        render_selectbox(
             "Seleccioná un subpropósito:",
-            ["Elegí una opción..."] + subpropositos
+            "subproposito",
+            subpropositos,
+            {}
         )
 
     # Estilo Artístico
     st.subheader("Estilo")
-    params["estilo_artístico"] = st.selectbox(
+    render_selectbox(
         "Estilo",
-        ["Elegí una opción..."] + list(ESTILO_DESCRIPCIONES.keys())
+        "estilo_artístico",
+        list(ESTILO_DESCRIPCIONES.keys()),
+        ESTILO_DESCRIPCIONES
     )
-    if params["estilo_artístico"] != "Elegí una opción...":
-        st.markdown(ESTILO_DESCRIPCIONES.get(params["estilo_artístico"], ""))
 
     # Iluminación
     st.subheader("Iluminación")
-    params["iluminación"] = st.selectbox(
+    render_selectbox(
         "Seleccioná la iluminación",
-        ["Elegí una opción..."] + list(ILUMINACION_DESCRIPCIONES.keys())
+        "iluminación",
+        list(ILUMINACION_DESCRIPCIONES.keys()),
+        ILUMINACION_DESCRIPCIONES
     )
-    if params["iluminación"] != "Elegí una opción...":
-        st.markdown(ILUMINACION_DESCRIPCIONES.get(params["iluminación"], ""))
 
     # Plano Fotográfico
     st.subheader("Plano Fotográfico")
-    params["plano_fotográfico"] = st.selectbox(
+    render_selectbox(
         "Seleccioná el plano fotográfico",
-        ["Elegí una opción..."] + list(PLANO_DESCRIPCIONES.keys())
+        "plano_fotográfico",
+        list(PLANO_DESCRIPCIONES.keys()),
+        PLANO_DESCRIPCIONES
     )
-    if params["plano_fotográfico"] != "Elegí una opción...":
-        st.markdown(PLANO_DESCRIPCIONES.get(params["plano_fotográfico"], ""))
 
     # Composición
     st.subheader("Composición")
-    params["composicion"] = st.selectbox(
+    render_selectbox(
         "Seleccioná la composición",
-        ["Elegí una opción..."] + list(COMPOSICION_DESCRIPCIONES.keys())
+        "composicion",
+        list(COMPOSICION_DESCRIPCIONES.keys()),
+        COMPOSICION_DESCRIPCIONES
     )
-    if params["composicion"] != "Elegí una opción...":
-        st.markdown(COMPOSICION_DESCRIPCIONES.get(params["composicion"], ""))
 
     # Paleta de Colores
     st.subheader("Paleta de Colores")
-    params["paleta_de_colores"] = st.selectbox(
+    render_selectbox(
         "Seleccioná la paleta de colores",
-        ["Elegí una opción..."] + list(PALETA_DESCRIPCIONES.keys())
+        "paleta_de_colores",
+        list(PALETA_DESCRIPCIONES.keys()),
+        PALETA_DESCRIPCIONES
     )
-    if params["paleta_de_colores"] != "Elegí una opción...":
-        st.markdown(PALETA_DESCRIPCIONES.get(params["paleta_de_colores"], ""))
 
     # Textura
     st.subheader("Textura")
-    params["textura"] = st.selectbox(
+    render_selectbox(
         "Seleccioná la textura",
-        ["Elegí una opción..."] + list(TEXTURA_DESCRIPCIONES.keys())
+        "textura",
+        list(TEXTURA_DESCRIPCIONES.keys()),
+        TEXTURA_DESCRIPCIONES
     )
-    if params["textura"] != "Elegí una opción...":
-        st.markdown(TEXTURA_DESCRIPCIONES.get(params["textura"], ""))
 
     # Resolución y Formato
     st.subheader("Resolución y Formato")
     col1, col2 = st.columns(2)
     with col1:
-        params["resolucion"] = st.selectbox(
+        render_selectbox(
             "Seleccioná una resolución",
-            ["Elegí una opción..."] + list(RESOLUCION_DESCRIPCIONES.keys())
+            "resolucion",
+            list(RESOLUCION_DESCRIPCIONES.keys()),
+            RESOLUCION_DESCRIPCIONES
         )
-        if params["resolucion"] != "Elegí una opción...":
-            st.markdown(RESOLUCION_DESCRIPCIONES.get(params["resolucion"], ""))
     with col2:
-        params["aspecto"] = st.selectbox(
+        render_selectbox(
             "Seleccioná una proporción",
-            ["Elegí una opción..."] + list(ASPECTO_DESCRIPCIONES.keys())
+            "aspecto",
+            list(ASPECTO_DESCRIPCIONES.keys()),
+            ASPECTO_DESCRIPCIONES
         )
-        if params["aspecto"] != "Elegí una opción...":
-            st.markdown(ASPECTO_DESCRIPCIONES.get(params["aspecto"], ""))
 
     # Guardar parámetros en session_state
     st.session_state["params"] = params
-
-    # Mostrar los parámetros capturados (solo en modo depuración)
-    if st.session_state.get("modo_debug", False):
-        st.write("Parámetros Capturados (Pantalla 1):", params)
 
     # Validar y pasar a la siguiente pantalla
     if st.button("Continuar"):
@@ -149,3 +157,4 @@ def configurar_pantalla1():
 
 if __name__ == "__main__":
     configurar_pantalla1()
+
