@@ -4,18 +4,21 @@ from prompt_generator import PromptGenerator
 
 def boton_copiar(text, label="Copiar texto"):
     """
-    Muestra un botón que, al hacer clic, copia 'text' 
+    Muestra un botón que, al hacer clic, copia 'text'
     al portapapeles del navegador usando JavaScript.
     """
+    # Escapar comillas simples y dobles para no romper el HTML
     text = text.replace("'", "\\'").replace('"', '\\"')
     import uuid
     btn_id = str(uuid.uuid4()).replace('-', '')
+
+    # HTML + JS: al hacer clic, se invoca la API del navegador para copiar
     html_code = f"""
-        <button id="copy-btn-{btn_id}" 
+        <button id="copy-btn-{btn_id}"
                 onclick="navigator.clipboard.writeText('{text}');
                          var tooltip = document.getElementById('tooltip-{btn_id}');
                          tooltip.innerHTML = '¡Copiado!';
-                " 
+                "
                 style="cursor:pointer;"
         >
             {label}
@@ -23,6 +26,7 @@ def boton_copiar(text, label="Copiar texto"):
         <span id="tooltip-{btn_id}" style="margin-left:8px;color:green"></span>
     """
     st.markdown(html_code, unsafe_allow_html=True)
+
 
 def configurar_pantalla2():
     # Validar que los parámetros de Pantalla 1 existan
@@ -47,10 +51,11 @@ def configurar_pantalla2():
 
     st.divider()  # Separador visual nativo
 
+    # Sección para copiar en español
     st.subheader("¿Querés copiarlo en español?")
     boton_copiar(st.session_state["prompt_editado"], label="📋 Copiar en español")
 
-    # Traducir y mostrar opción para copiar al inglés
+    # Sección para traducir y copiar al inglés
     st.subheader("¿Preferís usarlo en inglés?")
     st.markdown(
         "Algunas herramientas funcionan mejor con prompts en inglés. "
@@ -74,7 +79,7 @@ def configurar_pantalla2():
     if "traduccion_ingles" in st.session_state:
         boton_copiar(st.session_state["traduccion_ingles"], label="📋 Copiar traducción al inglés")
 
-    st.divider()
+    st.divider()  # Separador visual nativo
 
     # Herramientas recomendadas
     st.subheader("¿Dónde lo podés usar?")
@@ -90,7 +95,7 @@ def configurar_pantalla2():
         """
     )
 
-    st.divider()
+    st.divider()  # Separador visual nativo
 
     # Botón para generar un nuevo prompt
     if st.button("Generar un nuevo prompt"):
