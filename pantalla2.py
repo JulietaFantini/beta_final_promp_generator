@@ -7,15 +7,21 @@ def boton_copiar(text, label="Copiar texto"):
     Muestra un botón que, al hacer clic, copia 'text'
     al portapapeles del navegador usando JavaScript.
     """
-    # Escapar comillas simples y dobles para no romper el HTML
-    text = text.replace("'", "\\'").replace('"', '\\"')
     import uuid
+    # 1. Reemplazar comillas simples, dobles y saltos de línea
+    text_escaped = (
+        text
+        .replace("\\", "\\\\")   # primero escapamos las barras invertidas
+        .replace("\n", "\\n")    # luego saltos de línea
+        .replace("'", "\\'")     # luego comillas simples
+        .replace('"', '\\"')     # luego comillas dobles
+    )
     btn_id = str(uuid.uuid4()).replace('-', '')
 
-    # HTML + JS: al hacer clic, se invoca la API del navegador para copiar
+    # 2. Código HTML+JS: onclick invoca 'navigator.clipboard.writeText()'
     html_code = f"""
         <button id="copy-btn-{btn_id}"
-                onclick="navigator.clipboard.writeText('{text}');
+                onclick="navigator.clipboard.writeText('{text_escaped}');
                          var tooltip = document.getElementById('tooltip-{btn_id}');
                          tooltip.innerHTML = '¡Copiado!';
                 "
@@ -25,6 +31,8 @@ def boton_copiar(text, label="Copiar texto"):
         </button>
         <span id="tooltip-{btn_id}" style="margin-left:8px;color:green"></span>
     """
+
+    # 3. Renderizar HTML (no mostrarlo como texto)
     st.markdown(html_code, unsafe_allow_html=True)
 
 
@@ -49,10 +57,11 @@ def configurar_pantalla2():
         height=200
     )
 
-    st.divider()  # Separador visual nativo
+    st.divider()
 
     # Sección para copiar en español
     st.subheader("¿Querés copiarlo en español?")
+    # IMPORTANTE: primero el texto, segundo el label
     boton_copiar(
         text=st.session_state["prompt_editado"], 
         label="📋 Copiar en español"
@@ -91,7 +100,7 @@ def configurar_pantalla2():
             label="📋 Copiar traducción al inglés"
         )
 
-    st.divider()  # Separador visual nativo
+    st.divider()
 
     # Herramientas recomendadas
     st.subheader("¿Dónde lo podés usar?")
@@ -99,15 +108,15 @@ def configurar_pantalla2():
         """
         Estas son las principales herramientas donde podés pegar tu prompt generado para crear imágenes:
         
-        - [**DALL-E**](https://openai.com/dall-e): Pegá tu prompt para generar imágenes con precisión **realista**.
-        - [**MidJourney**](https://www.midjourney.com): Usalo para crear arte **detallado** y estético.
-        - [**Grok**](https://x.com/i/grok?focus=1&mx=2): Aplicá tu prompt para conectarte con tendencias actuales en redes sociales.
-        - [**Claude**](https://claude.ai/new): Pegalo para analizar y mejorar resultados complejos.
-        - [**Copilot**](https://copilot.microsoft.com/chats/TdFWATF4rK5SLC6Lfo3qN): Una herramienta para potenciar la generación rápida de imágenes.
+        - [**DALL-E**](https://openai.com/dall-e)
+        - [**MidJourney**](https://www.midjourney.com)
+        - [**Grok**](https://x.com/i/grok?focus=1&mx=2)
+        - [**Claude**](https://claude.ai/new)
+        - [**Copilot**](https://copilot.microsoft.com/chats/TdFWATF4rK5SLC6Lfo3qN)
         """
     )
 
-    st.divider()  # Separador visual nativo
+    st.divider()
 
     # Botón para generar un nuevo prompt
     if st.button("Generar un nuevo prompt"):
@@ -118,10 +127,10 @@ def configurar_pantalla2():
     st.markdown(
         """
         ---
-        Este trabajo es parte de un proyecto final de un curso de IA. Para consultas, escribí a **julietafantini@gmail.com**.
+        Este trabajo es parte de un proyecto final de un curso de IA. 
+        Para consultas, escribí a **julietafantini@gmail.com**.
         """
     )
-
 
 # --------------------------------------------------------------------------------
 # Ejecución local para pruebas
