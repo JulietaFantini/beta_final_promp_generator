@@ -41,7 +41,7 @@ def configurar_pantalla2():
     if st.button("📋 Copiar en español", use_container_width=True):
         copiar_al_portapapeles(st.session_state["prompt_editado"])
 
-    # Traducir y copiar al inglés
+    # Traducir y mostrar opción para copiar al inglés
     st.subheader("¿Preferís usarlo en inglés?")
     st.markdown(
         "Algunas herramientas funcionan mejor con prompts en inglés. "
@@ -50,20 +50,23 @@ def configurar_pantalla2():
 
     try:
         translator = Translator()
-    except Exception as e:
-        st.error("Hubo un problema al inicializar el traductor. Por favor, verificá tu conexión a internet.")
-        translator = None
+        if st.button("Traducir al inglés"):
+            if st.session_state["prompt_editado"].strip():
+                traduccion = translator.translate(
+                    st.session_state["prompt_editado"], src='es', dest='en'
+                ).text
+                st.session_state["traduccion_ingles"] = traduccion
+                st.text_area(
+                    "Traducción al inglés:", value=traduccion, height=200, disabled=True
+                )
+            else:
+                st.warning("El texto está vacío. No hay nada que traducir.")
+    except Exception:
+        st.error("Error al traducir el texto. Por favor, intentá nuevamente.")
 
-    if translator and st.button("Traducir y copiar al inglés"):
-        if st.session_state["prompt_editado"].strip():
-            try:
-                traduccion = translator.translate(st.session_state["prompt_editado"], src='es', dest='en').text
-                st.text_area("Traducción al inglés:", value=traduccion, height=200, disabled=True)
-                copiar_al_portapapeles(traduccion)
-            except Exception as e:
-                st.error("Error al traducir el texto. Por favor, intentá nuevamente.")
-        else:
-            st.warning("El texto está vacío. No hay nada que traducir.")
+    if "traduccion_ingles" in st.session_state:
+        if st.button("📋 Copiar traducción al inglés"):
+            copiar_al_portapapeles(st.session_state["traduccion_ingles"])
 
     # Herramientas recomendadas
     st.subheader("¿Dónde lo podés usar?")
@@ -99,3 +102,4 @@ def configurar_pantalla2():
 # --------------------------------------------------------------------------------
 if __name__ == "__main__":
     configurar_pantalla2()
+
