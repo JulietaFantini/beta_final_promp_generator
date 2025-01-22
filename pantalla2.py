@@ -53,7 +53,10 @@ def configurar_pantalla2():
 
     # Sección para copiar en español
     st.subheader("¿Querés copiarlo en español?")
-    boton_copiar(st.session_state["prompt_editado"], label="📋 Copiar en español")
+    boton_copiar(
+        text=st.session_state["prompt_editado"], 
+        label="📋 Copiar en español"
+    )
 
     # Sección para traducir y copiar al inglés
     st.subheader("¿Preferís usarlo en inglés?")
@@ -70,14 +73,23 @@ def configurar_pantalla2():
                     st.session_state["prompt_editado"], src='es', dest='en'
                 ).text
                 st.session_state["traduccion_ingles"] = traduccion
-                st.text_area("Traducción al inglés:", value=traduccion, height=200, disabled=True)
+                st.text_area(
+                    "Traducción al inglés:", 
+                    value=traduccion, 
+                    height=200,
+                    disabled=True
+                )
             except Exception as e:
                 st.error(f"Error al traducir el texto: {e}")
         else:
             st.warning("El texto está vacío. No hay nada que traducir.")
 
+    # Mostrar botón para copiar la traducción si ya se generó
     if "traduccion_ingles" in st.session_state:
-        boton_copiar(st.session_state["traduccion_ingles"], label="📋 Copiar traducción al inglés")
+        boton_copiar(
+            text=st.session_state["traduccion_ingles"], 
+            label="📋 Copiar traducción al inglés"
+        )
 
     st.divider()  # Separador visual nativo
 
@@ -109,6 +121,7 @@ def configurar_pantalla2():
         Este trabajo es parte de un proyecto final de un curso de IA. Para consultas, escribí a **julietafantini@gmail.com**.
         """
     )
+
 
 # --------------------------------------------------------------------------------
 # Ejecución local para pruebas
