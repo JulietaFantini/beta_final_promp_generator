@@ -64,7 +64,7 @@ This project is a **Streamlit**-based application that allows users to generate 
 
 1. Clone the repository:
    ```bash
-   git clone <repository-URL>
+   git clone https://github.com/JulietaFantini/beta_final_promp_generator.git
    ```
 2. Create and activate a virtual environment:
    ```bash
