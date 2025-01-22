@@ -91,8 +91,5 @@ def configure_page_style():
         </style>
     """, unsafe_allow_html=True)
 
-# Llamar a la función para aplicar los estilos
-configure_page_style()
+# La configuración de estilos se aplicará desde el archivo principal (app.py)
 
-# Aquí va el resto de tu aplicación Streamlit
-st.title("Mi Aplicación de Streamlit")
