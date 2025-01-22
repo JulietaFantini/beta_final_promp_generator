@@ -1,0 +1,12 @@
+[theme]
+base = "light"
+primaryColor = "#4A90E2"     # Color primario (azul)
+backgroundColor = "#F4F4F4"  # Fondo principal (gris claro)
+secondaryBackgroundColor = "#FFFFFF"  # Fondo secundario (blanco)
+textColor = "#333333"     # Color de texto (gris oscuro)
+
+[server]
+port = 8501
+enableCORS = false
+fileWatcherType = "poll"
+headless = true
