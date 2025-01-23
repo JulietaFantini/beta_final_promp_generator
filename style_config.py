@@ -55,13 +55,16 @@ def configure_page_style():
             div.stMarkdown h1 {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-bold);
-                margin-bottom: calc(var(--base-spacing) * 2);
+                font-size: 3rem; /* Tamaño revisado */
+                margin-bottom: 1.5rem; /* Márgenes compactos */
             }}
             
             div.stMarkdown h2 {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-medium);
+                font-size: 2rem; /* Tamaño compacto */
                 margin-bottom: var(--base-spacing);
+                color: var(--color-secondary); /* Color diferenciado */
             }}
             
             div.stMarkdown p,
@@ -84,7 +87,7 @@ def configure_page_style():
             }}
             
             /* Botones */
-            div.stButton > button {{
+            button[kind="primary"] {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-medium);
                 background-color: var(--color-primary);
@@ -94,7 +97,7 @@ def configure_page_style():
                 padding: var(--base-spacing);
                 transition: all 0.2s ease-in-out;
             }}
-            div.stButton > button:hover {{
+            button[kind="primary"]:hover {{
                 background-color: var(--color-primary-hover);
             }}
             
@@ -103,12 +106,14 @@ def configure_page_style():
                 font-family: var(--font-mono);
                 color: var(--color-text);
                 background-color: var(--color-background-secondary);
-                border: 1px solid var(--color-subtle);
+                border: 1px solid var(--color-primary); /* Color actualizado */
                 border-radius: var(--border-radius);
                 padding: calc(var(--base-spacing) / 2);  
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra agregada */
             }}
             div.stSelectbox:hover select {{
                 border-color: var(--color-primary-hover);
+                background-color: var(--color-secondary-hover); /* Fondo dinámico */
             }}
             
             /* Mensajes de Error */
@@ -118,10 +123,13 @@ def configure_page_style():
                 border-radius: var(--border-radius);
                 background-color: var(--color-background-secondary);
                 padding: var(--base-spacing);
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Ajuste de sombra */
+                margin-top: var(--base-spacing); /* Agregado de margen superior */
+                margin-bottom: var(--base-spacing); /* Agregado de margen inferior */
             }}
             div.stAlert p {{
-                font-weight: var(--fw-medium); 
+                font-weight: var(--fw-medium);
+                color: var(--color-primary); /* Color de texto actualizado */
             }}
             
             /* Jerarquía Informativa */
