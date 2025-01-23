@@ -1,150 +1,169 @@
 import streamlit as st
 
 STYLE_CONFIG = {
-    "primary_color": "#4A90E2",
-    "secondary_color": "#50E3C2",
-    "background_color": "#FFFFFF",
-    "secondary_background_color": "#F7F7F7",
-    "text_color": "#333333",
-    "base_spacing": 12,
-    "border_radius": 8,
-    "color_subtle": "#E0E0E0",
-    "font_mono": "DM Mono, monospace",
-    "font_primary": "DM Sans, sans-serif",
-    "fw_normal": 400,
-    "fw_medium": 500,
-    "fw_bold": 700,
-    "hover_offset": 8,
+   "primary_color": "#E26728",      # Poppy
+   "secondary_color": "#F69593",    # Flamingo
+   "accent_color": "#AEA434",       # Olive
+   "background_color": "#FFFFFF",   
+   "subtle_color": "#CBCADC",       # Baby Blue
+   "text_primary": "#2D2B3F",       # Dark purple
+   "text_secondary": "#4A4860",     # Medium purple
+   "base_spacing": 12,
+   "border_radius": 8,
+   "font_mono": "DM Mono, monospace",
+   "font_primary": "DM Sans, system-ui, sans-serif",
+   "fw_normal": 400,
+   "fw_medium": 500,
+   "fw_bold": 700,
 }
-
-def get_hover_color(base_color):
-    color = base_color.lstrip("#")
-    rgb = [int(color[i:i+2], 16) for i in (0, 2, 4)]
-    dimmed_rgb = [max(0, c - 20) for c in rgb]
-    return "#" + "".join([f"{c:02x}" for c in dimmed_rgb])
 
 @st.cache_resource
 def configure_page_style():
-    st.markdown(f"""
-        <style>
-        {{{{
-            :root {{
-                --color-primary: {STYLE_CONFIG["primary_color"]};
-                --color-secondary: {STYLE_CONFIG["secondary_color"]};
-                --color-subtle: {STYLE_CONFIG["color_subtle"]};  
-                --color-primary-hover: {get_hover_color(STYLE_CONFIG["primary_color"])};
-                --color-secondary-hover: {get_hover_color(STYLE_CONFIG["secondary_color"])};
-                --color-text: {STYLE_CONFIG["text_color"]};
-                --color-background: {STYLE_CONFIG["background_color"]};
-                --color-background-secondary: {STYLE_CONFIG["secondary_background_color"]};
-                --font-primary: {STYLE_CONFIG["font_primary"]};
-                --font-mono: {STYLE_CONFIG["font_mono"]};
-                --border-radius: {STYLE_CONFIG["border_radius"]}px;
-                --base-spacing: {STYLE_CONFIG["base_spacing"]}px;
-                --fw-normal: {STYLE_CONFIG["fw_normal"]};
-                --fw-medium: {STYLE_CONFIG["fw_medium"]};
-                --fw-bold: {STYLE_CONFIG["fw_bold"]};
-            }}
+   st.markdown("""
+       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+   """, unsafe_allow_html=True)
+   
+   st.markdown(f"""
+       <style>
+       :root {{
+           --color-primary: {STYLE_CONFIG["primary_color"]};
+           --color-secondary: {STYLE_CONFIG["secondary_color"]};
+           --color-accent: {STYLE_CONFIG["accent_color"]};
+           --color-subtle: {STYLE_CONFIG["subtle_color"]};
+           --color-text-primary: {STYLE_CONFIG["text_primary"]};
+           --color-text-secondary: {STYLE_CONFIG["text_secondary"]};
+           --font-primary: {STYLE_CONFIG["font_primary"]};
+           --font-mono: {STYLE_CONFIG["font_mono"]};
+       }}
 
-            /* Arquitectura Visual */
-            div.element-container {{
-                margin-bottom: var(--base-spacing);
-            }}
+       .stApp {{
+           font-family: var(--font-primary);
+           color: var(--color-text-primary);
+       }}
 
-            /* Sistema Tipográfico */
-            div.stMarkdown h1 {{
-                font-family: var(--font-primary);
-                font-weight: var(--fw-bold);
-                font-size: 3rem; /* Tamaño revisado */
-                margin-bottom: 1.5rem; /* Márgenes compactos */
-            }}
-            
-            div.stMarkdown h2 {{
-                font-family: var(--font-primary);
-                font-weight: var(--fw-medium);
-                font-size: 2rem; /* Tamaño compacto */
-                margin-bottom: var(--base-spacing);
-                color: var(--color-secondary); /* Color diferenciado */
-            }}
-            
-            div.stMarkdown p,
-            .stText {{  
-                font-family: var(--font-primary);
-                font-weight: var(--fw-normal);
-                color: var(--color-text);
-                line-height: 1.6;
-            }}
-            
-            /* Campos de Formulario */
-            div.stTextInput > div,
-            div.stTextArea > div {{
-                font-family: var(--font-mono);
-                color: var(--color-text);
-                background-color: var(--color-background-secondary);
-                border: 1px solid var(--color-subtle);
-                border-radius: var(--border-radius); 
-                padding: calc(var(--base-spacing) / 2);
-            }}
-            
-            /* Botones */
-            button[kind="primary"] {{
-                font-family: var(--font-primary);
-                font-weight: var(--fw-medium);
-                background-color: var(--color-primary);
-                color: white;
-                border: none;
-                border-radius: var(--border-radius);
-                padding: var(--base-spacing);
-                transition: all 0.2s ease-in-out;
-            }}
-            button[kind="primary"]:hover {{
-                background-color: var(--color-primary-hover);
-            }}
-            
-            /* Selectores */
-            div.stSelectbox select {{
-                font-family: var(--font-mono);
-                color: var(--color-text);
-                background-color: var(--color-background-secondary);
-                border: 1px solid var(--color-primary); /* Color actualizado */
-                border-radius: var(--border-radius);
-                padding: calc(var(--base-spacing) / 2);  
-                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra agregada */
-            }}
-            div.stSelectbox:hover select {{
-                border-color: var(--color-primary-hover);
-                background-color: var(--color-secondary-hover); /* Fondo dinámico */
-            }}
-            
-            /* Mensajes de Error */
-            div.stAlert {{
-                font-family: var(--font-primary);
-                border-left: 4px solid var(--color-primary);
-                border-radius: var(--border-radius);
-                background-color: var(--color-background-secondary);
-                padding: var(--base-spacing);
-                box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Ajuste de sombra */
-                margin-top: var(--base-spacing); /* Agregado de margen superior */
-                margin-bottom: var(--base-spacing); /* Agregado de margen inferior */
-            }}
-            div.stAlert p {{
-                font-weight: var(--fw-medium);
-                color: var(--color-primary); /* Color de texto actualizado */
-            }}
-            
-            /* Jerarquía Informativa */
-            .info-text {{
-                font-family: var(--font-mono);
-                font-size: 0.875rem;
-                color: var(--color-text);
-                opacity: 0.8;
-                margin-bottom: calc(var(--base-spacing) / 2);
-            }}
+       .stMarkdown h1 {{
+           font-family: var(--font-primary);
+           font-weight: 700;
+           font-size: 2rem;
+           line-height: 1.2;
+           letter-spacing: -0.02em;
+           color: var(--color-text-primary);
+           margin-bottom: 1.5rem;
+       }}
 
-            .highlight-text {{
-                color: var(--color-primary);
-                font-weight: var(--fw-medium);
-            }} 
-        }}}}
-        </style>
-    """, unsafe_allow_html=True)
+       .stMarkdown h2 {{
+           font-family: var(--font-primary);
+           font-weight: 500;
+           font-size: 1.6rem;
+           letter-spacing: -0.01em;
+           color: var(--color-text-primary);
+           margin-bottom: 1rem;
+       }}
+
+       .stTextArea textarea,
+       .stCodeEditor > div {{
+           font-family: var(--font-mono);
+           font-size: 0.9375rem;
+           line-height: 1.5;
+       }}
+
+       .stButton > button {{
+           font-family: var(--font-primary);
+           font-weight: 500;
+           background-color: var(--color-primary);
+           color: white;
+           padding: 0.75rem 1.5rem;
+           border: none;
+           border-radius: 8px;
+           transition: opacity 0.3s ease;
+       }}
+
+       .stButton > button:hover {{
+           opacity: 0.9;
+       }}
+
+       .stSelectbox > div > div > select {{
+           font-family: var(--font-mono);
+           color: var(--color-text-primary);
+           background-color: white;
+           border: 1px solid var(--color-subtle);
+           border-radius: 8px;
+           padding: 0.75rem;
+       }}
+
+       .stSelectbox > div > div > select:focus {{
+           border-color: var(--color-secondary);
+           box-shadow: 0 0 4px rgba(246, 149, 147, 0.3);
+       }}
+
+       .stTextInput > div > div > input,
+       .stTextArea > div > div > textarea {{
+           font-family: var(--font-mono);
+           color: var(--color-text-primary);
+           background-color: white;
+           border: 1px solid var(--color-subtle);
+           border-radius: 8px;
+           padding: 0.75rem;
+           transition: border-color 0.3s ease, box-shadow 0.3s ease;
+       }}
+
+       .stTextInput > div > div > input:focus,
+       .stTextArea > div > div > textarea:focus {{
+           border-color: var(--color-secondary);
+           box-shadow: 0 0 4px rgba(246, 149, 147, 0.3);
+       }}
+
+       .stAlert {{
+           font-family: var(--font-primary);
+           border-left: 4px solid var(--color-primary);
+           background-color: white;
+           border-radius: 8px;
+           padding: 1rem;
+           margin: 1rem 0;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+       }}
+
+       .info-text {{
+           font-family: var(--font-mono);
+           font-size: 0.875rem;
+           color: var(--color-text-secondary);
+           margin-bottom: 0.5rem;
+       }}
+
+       .highlight-text {{
+           color: var(--color-primary);
+           font-weight: 500;
+       }}
+
+       .stExpander {{
+           border: 1px solid var(--color-subtle);
+           border-radius: 8px;
+           background-color: white;
+       }}
+
+       a {{
+           color: var(--color-primary);
+           text-decoration: none;
+           transition: opacity 0.3s ease;
+       }}
+
+       a:hover {{
+           opacity: 0.8;
+       }}
+
+       .footnote {{
+           font-family: var(--font-mono);
+           font-size: 0.75rem;
+           color: var(--color-text-secondary);
+           border-top: 1px solid var(--color-subtle);
+           padding-top: 1rem;
+           margin-top: 2rem;
+       }}
+
+       hr {{
+           border: none;
+           border-top: 1px solid var(--color-subtle);
+           margin: 1.5rem 0;
+       }}
+       </style>
+   """, unsafe_allow_html=True)
