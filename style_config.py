@@ -1,5 +1,14 @@
 import streamlit as st
 
+def get_hover_color(base_color):
+    """
+    Calcula un color más oscuro para el hover a partir de un color base.
+    """
+    color = base_color.lstrip("#")  # Elimina el "#" del código hexadecimal
+    rgb = [int(color[i:i+2], 16) for i in (0, 2, 4)]  # Convierte el color hex en RGB
+    dimmed_rgb = [max(0, c - 20) for c in rgb]  # Oscurece el color restando 20 a cada componente RGB
+    return "#" + "".join([f"{c:02x}" for c in dimmed_rgb])  # Convierte el color de vuelta a hexadecimal
+
 STYLE_CONFIG = {
     "primary_color": "#4A90E2",  # Azul (Color primario)
     "secondary_color": "#50E3C2",  # Verde (Color secundario)
