@@ -58,6 +58,18 @@ def configure_page_style():
                 --fw-bold: {STYLE_CONFIG["fw_bold"]};
             }}
 
+            [data-testid="stAppViewContainer"], 
+            [data-testid="stHeader"],
+            section[data-testid="stSidebar"],
+            div[class*="css"] {{
+                background-color: var(--color-background) !important;
+                color: var(--color-text) !important;
+            }}
+
+            #MainMenu {{visibility: hidden !important;}}
+            footer {{visibility: hidden !important;}}
+            header {{visibility: hidden !important;}}
+
             .stApp {{
                 background-color: var(--color-background);
                 color: var(--color-text);
