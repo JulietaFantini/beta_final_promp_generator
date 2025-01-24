@@ -1,32 +1,30 @@
 import streamlit as st
 
-STYLE_CONFIG = {
-   "primary_color": "#4A90E2",
-   "secondary_color": "#2D8B72",
-   "text_color": "#333333",
-   "color_subtle": "#E0E0E0",
-   "background_color": "#FFFFFF",
-   "background_secondary": "#F7F7F7"
-}
+# Configuración de la página
+st.set_page_config(page_title="Diseño Conservador", layout="centered")
 
-def configure_page_style():
-   st.markdown("""
-       <style>
-       div.stMarkdown h1 {
-           color: #333333 !important;
-           border-bottom: 2px solid #4A90E2 !important;
-       }
-       
-       div.stMarkdown h2 {
-           color: #2D8B72 !important;
-           border-left: 3px solid #2D8B72 !important;
-           padding-left: 8px !important;
-       }
-       
-       .stButton > button {
-           background-color: #4A90E2 !important;
-           color: white !important;
-       }
-       </style>
-   """, unsafe_allow_html=True)
-   
+# Títulos (tipografía nativa de Streamlit)
+st.title("Título Principal")  # H1
+st.subheader("Subtítulo Secundario")  # H2
+
+# Texto Regular
+st.text("Texto regular para contenido informativo.")
+
+# Botones
+st.button("Botón Primario")  # Acción principal
+st.button("Botón Secundario")  # Acción secundaria
+
+# Campo de Entrada
+user_input = st.text_input(
+    label="Campo de Entrada", 
+    placeholder="Escribe algo aquí...",
+    help="Un campo de texto simple para entrada de usuario."
+)
+
+# Alerta Informativa
+st.info("Este es un mensaje informativo.")
+
+# Layout con columnas
+col1, col2 = st.columns(2)
+col1.button("Acción en Columna 1")
+col2.button("Acción en Columna 2")
