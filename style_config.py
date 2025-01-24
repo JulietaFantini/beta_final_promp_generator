@@ -48,9 +48,6 @@ def configure_page_style():
                 --fw-medium: {STYLE_CONFIG["fw_medium"]};
                 --fw-bold: {STYLE_CONFIG["fw_bold"]};
             }}
-        }}
-        </style>
-    """, unsafe_allow_html=True)
             
             /* Arquitectura Visual */
             div.element-container {{
