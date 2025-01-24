@@ -9,7 +9,7 @@ STYLE_CONFIG = {
    "background_secondary": "#F7F7F7"
 }
 
-def configure_style_markdown():
+def configure_page_style():
    st.markdown("""
        <style>
        div.stMarkdown h1 {
