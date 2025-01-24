@@ -67,23 +67,35 @@ def configure_page_style():
             div.stMarkdown h1 {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-bold);
-                font-size: 3rem;
-                margin-bottom: 1.5rem;
+                font-size: 2rem;
+                margin-bottom: 1.25rem;
+                border-bottom: 2px solid var(--color-primary);
             }}
 
             div.stMarkdown h2 {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-medium);
-                font-size: 2rem;
+                font-size: 1.5rem;
                 color: var(--color-secondary);
-                margin-bottom: var(--base-spacing);
+                margin-bottom: 1rem;
+                border-left: 3px solid var(--color-secondary);
+                padding-left: 8px;
             }}
 
-            div.stMarkdown p, .stText {{
+            div.stMarkdown h3 {{
                 font-family: var(--font-primary);
-                font-weight: var(--fw-normal);
+                font-weight: var(--fw-medium);
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }}
+
+            div.stTextInput > div, div.stTextArea > div {{
+                font-family: var(--font-mono);
                 color: var(--color-text);
-                line-height: 1.6;
+                background-color: var(--color-background);
+                border: 1px solid var(--color-subtle);
+                border-radius: var(--border-radius);
+                padding: calc(var(--base-spacing) / 2);
             }}
 
             button[kind="primary"] {{
@@ -101,37 +113,28 @@ def configure_page_style():
                 background-color: var(--color-primary-hover);
             }}
 
-            div.stSelectbox select {{
-                font-family: var(--font-mono);
-                color: var(--color-text);
-                background-color: var(--color-background-secondary);
+            button[kind="secondary"] {{
+                font-family: var(--font-primary);
+                font-weight: var(--fw-medium);
+                background-color: transparent;
+                color: var(--color-primary);
                 border: 1px solid var(--color-primary);
                 border-radius: var(--border-radius);
-                padding: calc(var(--base-spacing) / 2);
-                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+                padding: var(--base-spacing);
             }}
 
-            div.stSelectbox:hover select {{
-                border-color: var(--color-primary-hover);
-                background-color: var(--color-secondary-hover);
-            }}
-
-            div.stTextInput > div, div.stTextArea > div {{
-                font-family: var(--font-mono);
-                color: var(--color-text);
+            button[kind="secondary"]:hover {{
                 background-color: var(--color-background-secondary);
-                border: 1px solid var(--color-subtle);
-                border-radius: var(--border-radius);
-                padding: calc(var(--base-spacing) / 2);
+                color: var(--color-primary);
             }}
 
             div.stAlert {{
                 font-family: var(--font-primary);
                 border-left: 4px solid var(--color-primary);
                 border-radius: var(--border-radius);
-                background-color: var(--color-background-secondary);
+                background-color: var(--color-background);
                 padding: var(--base-spacing);
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 margin-top: var(--base-spacing);
                 margin-bottom: var(--base-spacing);
             }}
