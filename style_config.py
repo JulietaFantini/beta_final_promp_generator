@@ -41,6 +41,7 @@ def configure_page_style():
            color: var(--color-text-primary);
        }}
 
+       /* Títulos */
        .stMarkdown h1 {{
            font-family: var(--font-primary);
            font-weight: 700;
@@ -60,6 +61,7 @@ def configure_page_style():
            margin-bottom: 1rem;
        }}
 
+       /* Text Areas */
        .stTextArea textarea,
        .stCodeEditor > div {{
            font-family: var(--font-mono);
@@ -67,11 +69,12 @@ def configure_page_style():
            line-height: 1.5;
        }}
 
+       /* Botones */
        .stButton > button {{
            font-family: var(--font-primary);
            font-weight: 500;
-           background-color: var(--color-primary);
-           color: white;
+           background-color: var(--color-primary) !important;
+           color: white !important;
            padding: 0.75rem 1.5rem;
            border: none;
            border-radius: 8px;
@@ -82,10 +85,11 @@ def configure_page_style():
            opacity: 0.9;
        }}
 
+       /* Selectores */
        .stSelectbox > div > div > select {{
            font-family: var(--font-mono);
            color: var(--color-text-primary);
-           background-color: white;
+           background-color: var(--color-background);
            border: 1px solid var(--color-subtle);
            border-radius: 8px;
            padding: 0.75rem;
@@ -96,6 +100,7 @@ def configure_page_style():
            box-shadow: 0 0 4px rgba(246, 149, 147, 0.3);
        }}
 
+       /* Inputs */
        .stTextInput > div > div > input,
        .stTextArea > div > div > textarea {{
            font-family: var(--font-mono);
@@ -113,6 +118,7 @@ def configure_page_style():
            box-shadow: 0 0 4px rgba(246, 149, 147, 0.3);
        }}
 
+       /* Alertas */
        .stAlert {{
            font-family: var(--font-primary);
            border-left: 4px solid var(--color-primary);
@@ -123,6 +129,7 @@ def configure_page_style():
            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
        }}
 
+       /* Texto informativo */
        .info-text {{
            font-family: var(--font-mono);
            font-size: 0.875rem;
@@ -130,17 +137,7 @@ def configure_page_style():
            margin-bottom: 0.5rem;
        }}
 
-       .highlight-text {{
-           color: var(--color-primary);
-           font-weight: 500;
-       }}
-
-       .stExpander {{
-           border: 1px solid var(--color-subtle);
-           border-radius: 8px;
-           background-color: white;
-       }}
-
+       /* Enlaces */
        a {{
            color: var(--color-primary);
            text-decoration: none;
@@ -151,6 +148,7 @@ def configure_page_style():
            opacity: 0.8;
        }}
 
+       /* Pie de página */
        .footnote {{
            font-family: var(--font-mono);
            font-size: 0.75rem;
