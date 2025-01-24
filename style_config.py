@@ -1,21 +1,21 @@
 import streamlit as st
 
 def get_hover_color(base_color):
-    """
-    Calcula un color más oscuro para el hover a partir de un color base.
-    """
-    color = base_color.lstrip("#")  # Elimina el "#" del código hexadecimal
-    rgb = [int(color[i:i+2], 16) for i in (0, 2, 4)]  # Convierte el color hex en RGB
-    dimmed_rgb = [max(0, c - 20) for c in rgb]  # Oscurece el color restando 20 a cada componente RGB
-    return "#" + "".join([f"{c:02x}" for c in dimmed_rgb])  # Convierte el color de vuelta a hexadecimal
+    color = base_color.lstrip("#")
+    rgb = [int(color[i:i+2], 16) for i in (0, 2, 4)]
+    dimmed_rgb = [max(0, c - 20) for c in rgb]
+    return "#" + "".join([f"{c:02x}" for c in dimmed_rgb])
 
 STYLE_CONFIG = {
-    "primary_color": "#4A90E2",  # Azul (Color primario)
-    "secondary_color": "#50E3C2",  # Verde (Color secundario)
-    "background_color": "#FFFFFF",  # Blanco (Color de fondo)
-    "secondary_background_color": "#F7F7F7",  # Gris muy claro (Fondo secundario)
-    "text_color": "#333333",  # Gris oscuro (Texto principal)
-    "color_subtle": "#E0E0E0",  # Gris claro (Color sutil)
+    "primary_color": "#4A90E2",
+    "secondary_color": "#2D8B72",
+    "background_color": "#FFFFFF", 
+    "secondary_background_color": "#F7F7F7",
+    "text_color": "#333333",
+    "color_subtle": "#E0E0E0",
+    "error_color": "#DC2626",
+    "warning_color": "#F59E0B",
+    "success_color": "#10B981",
     "base_spacing": 12,
     "border_radius": 8,
     "font_mono": "DM Mono, monospace",
@@ -28,18 +28,27 @@ STYLE_CONFIG = {
 
 @st.cache_resource
 def configure_page_style():
+    # Cargar Google Fonts
+    st.markdown("""
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    """, unsafe_allow_html=True)
+    
+    # Definir variables CSS en :root
     st.markdown(f"""
         <style>
         {{
             :root {{
-                --color-primary: {STYLE_CONFIG["primary_color"]} !important;  /* Azul: #4A90E2 */
-                --color-secondary: {STYLE_CONFIG["secondary_color"]} !important;  /* Verde: #50E3C2 */
-                --color-subtle: {STYLE_CONFIG["color_subtle"]} !important;  /* Gris claro: #E0E0E0 */
-                --color-primary-hover: {get_hover_color(STYLE_CONFIG["primary_color"])} !important;  /* Hover sobre el color primario */
-                --color-secondary-hover: {get_hover_color(STYLE_CONFIG["secondary_color"])} !important;  /* Hover sobre el color secundario */
-                --color-text: {STYLE_CONFIG["text_color"]} !important;  /* Gris oscuro: #333333 */
-                --color-background: {STYLE_CONFIG["background_color"]} !important;  /* Blanco: #FFFFFF */
-                --color-background-secondary: {STYLE_CONFIG["secondary_background_color"]} !important;  /* Gris muy claro: #F7F7F7 */
+                --color-primary: {STYLE_CONFIG["primary_color"]} !important;
+                --color-secondary: {STYLE_CONFIG["secondary_color"]} !important;
+                --color-subtle: {STYLE_CONFIG["color_subtle"]} !important;
+                --color-primary-hover: {get_hover_color(STYLE_CONFIG["primary_color"])} !important;
+                --color-secondary-hover: {get_hover_color(STYLE_CONFIG["secondary_color"])} !important;
+                --color-text: {STYLE_CONFIG["text_color"]} !important;
+                --color-background: {STYLE_CONFIG["background_color"]} !important;
+                --color-background-secondary: {STYLE_CONFIG["secondary_background_color"]} !important;
+                --color-error: {STYLE_CONFIG["error_color"]} !important;
+                --color-warning: {STYLE_CONFIG["warning_color"]} !important;
+                --color-success: {STYLE_CONFIG["success_color"]} !important;
                 --font-primary: {STYLE_CONFIG["font_primary"]};
                 --font-mono: {STYLE_CONFIG["font_mono"]};
                 --border-radius: {STYLE_CONFIG["border_radius"]}px;
@@ -48,48 +57,35 @@ def configure_page_style():
                 --fw-medium: {STYLE_CONFIG["fw_medium"]};
                 --fw-bold: {STYLE_CONFIG["fw_bold"]};
             }}
-            
-            /* Arquitectura Visual */
-            div.element-container {{
-                margin-bottom: var(--base-spacing);
+
+            .stApp {{
+                background-color: var(--color-background);
+                color: var(--color-text);
+                font-family: var(--font-primary);
             }}
 
-            /* Sistema Tipográfico */
             div.stMarkdown h1 {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-bold);
                 font-size: 3rem;
                 margin-bottom: 1.5rem;
             }}
-            
+
             div.stMarkdown h2 {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-medium);
                 font-size: 2rem;
-                color: var(--color-secondary); /* Color secundario aplicado a h2 */
+                color: var(--color-secondary);
                 margin-bottom: var(--base-spacing);
             }}
-            
-            div.stMarkdown p,
-            .stText {{  
+
+            div.stMarkdown p, .stText {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-normal);
-                color: var(--color-text); /* Color texto primario */
+                color: var(--color-text);
                 line-height: 1.6;
             }}
-            
-            /* Campos de Formulario */
-            div.stTextInput > div,
-            div.stTextArea > div {{
-                font-family: var(--font-mono);
-                color: var(--color-text);
-                background-color: var(--color-background-secondary);
-                border: 1px solid var(--color-subtle);
-                border-radius: var(--border-radius); 
-                padding: calc(var(--base-spacing) / 2);
-            }}
-            
-            /* Botones */
+
             button[kind="primary"] {{
                 font-family: var(--font-primary);
                 font-weight: var(--fw-medium);
@@ -100,42 +96,51 @@ def configure_page_style():
                 padding: var(--base-spacing);
                 transition: all 0.2s ease-in-out;
             }}
+
             button[kind="primary"]:hover {{
                 background-color: var(--color-primary-hover);
             }}
-            
-            /* Selectores */
+
             div.stSelectbox select {{
                 font-family: var(--font-mono);
                 color: var(--color-text);
                 background-color: var(--color-background-secondary);
-                border: 1px solid var(--color-primary); /* Borde con color primario */
+                border: 1px solid var(--color-primary);
                 border-radius: var(--border-radius);
                 padding: calc(var(--base-spacing) / 2);
                 box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
             }}
+
             div.stSelectbox:hover select {{
                 border-color: var(--color-primary-hover);
-                background-color: var(--color-secondary-hover); /* Fondo dinámico con hover */
+                background-color: var(--color-secondary-hover);
             }}
-            
-            /* Mensajes de Error */
+
+            div.stTextInput > div, div.stTextArea > div {{
+                font-family: var(--font-mono);
+                color: var(--color-text);
+                background-color: var(--color-background-secondary);
+                border: 1px solid var(--color-subtle);
+                border-radius: var(--border-radius);
+                padding: calc(var(--base-spacing) / 2);
+            }}
+
             div.stAlert {{
                 font-family: var(--font-primary);
                 border-left: 4px solid var(--color-primary);
                 border-radius: var(--border-radius);
                 background-color: var(--color-background-secondary);
                 padding: var(--base-spacing);
-                box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
                 margin-top: var(--base-spacing);
                 margin-bottom: var(--base-spacing);
             }}
+
             div.stAlert p {{
                 font-weight: var(--fw-medium);
-                color: var(--color-primary); /* Texto en color primario */
+                color: var(--color-primary);
             }}
-            
-            /* Jerarquía Informativa */
+
             .info-text {{
                 font-family: var(--font-mono);
                 font-size: 0.875rem;
@@ -143,10 +148,11 @@ def configure_page_style():
                 opacity: 0.8;
                 margin-bottom: calc(var(--base-spacing) / 2);
             }}
+
             .highlight-text {{
                 color: var(--color-primary);
                 font-weight: var(--fw-medium);
-            }} 
-        }}}}
+            }}
+        }}
         </style>
     """, unsafe_allow_html=True)
