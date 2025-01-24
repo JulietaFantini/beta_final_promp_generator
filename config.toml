@@ -1,20 +1,7 @@
 [theme]
-primaryColor = "#4A90E2"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F7F7F7"  # Actualizado para coincidir
-textColor = "#333333"
-font = "DM Sans"  # Agregar fuente principal
+primaryColor = "#4A90E2"    
+backgroundColor = "#FFFFFF"  
+textColor = "#333333"       
+secondaryBackgroundColor = "#F7F7F7"
+font = "DM Sans"
 base = "light"
-
-# Desactivar temas automáticos
-enableDarkTheme = false
-
-[browser]
-gatherUsageStats = false
-
-[server]
-port = 8501
-enableCORS = false
-fileWatcherType = "poll"
-headless = true
-enableThemeExtension = false
