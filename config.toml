@@ -1,9 +1,9 @@
-# [theme]
-# base = "light"
-# primaryColor = "#4A90E2"
-# backgroundColor = "#F4F4F4"
-# secondaryBackgroundColor = "#FFFFFF"
-# textColor = "#333333"
+[theme]
+base = "light"  # Cambia a "dark" si prefieres un tema oscuro
+primaryColor = "#4A90E2"  # Azul para elementos primarios
+backgroundColor = "#FFFFFF"  # Blanco como fondo principal
+secondaryBackgroundColor = "#F4F4F4"  # Gris claro para fondo secundario
+textColor = "#333333"  # Texto en gris oscuro
 
 [server]
 port = 8501
