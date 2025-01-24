@@ -32,14 +32,14 @@ def configure_page_style():
         <style>
         {{
             :root {{
-                --color-primary: {STYLE_CONFIG["primary_color"]};  /* Azul: #4A90E2 */
-                --color-secondary: {STYLE_CONFIG["secondary_color"]};  /* Verde: #50E3C2 */
-                --color-subtle: {STYLE_CONFIG["color_subtle"]};  /* Gris claro: #E0E0E0 */
-                --color-primary-hover: {get_hover_color(STYLE_CONFIG["primary_color"])};  /* Hover sobre el color primario */
-                --color-secondary-hover: {get_hover_color(STYLE_CONFIG["secondary_color"])};  /* Hover sobre el color secundario */
-                --color-text: {STYLE_CONFIG["text_color"]};  /* Gris oscuro: #333333 */
-                --color-background: {STYLE_CONFIG["background_color"]};  /* Blanco: #FFFFFF */
-                --color-background-secondary: {STYLE_CONFIG["secondary_background_color"]};  /* Gris muy claro: #F7F7F7 */
+                --color-primary: {STYLE_CONFIG["primary_color"]} !important;  /* Azul: #4A90E2 */
+                --color-secondary: {STYLE_CONFIG["secondary_color"]} !important;  /* Verde: #50E3C2 */
+                --color-subtle: {STYLE_CONFIG["color_subtle"]} !important;  /* Gris claro: #E0E0E0 */
+                --color-primary-hover: {get_hover_color(STYLE_CONFIG["primary_color"])} !important;  /* Hover sobre el color primario */
+                --color-secondary-hover: {get_hover_color(STYLE_CONFIG["secondary_color"])} !important;  /* Hover sobre el color secundario */
+                --color-text: {STYLE_CONFIG["text_color"]} !important;  /* Gris oscuro: #333333 */
+                --color-background: {STYLE_CONFIG["background_color"]} !important;  /* Blanco: #FFFFFF */
+                --color-background-secondary: {STYLE_CONFIG["secondary_background_color"]} !important;  /* Gris muy claro: #F7F7F7 */
                 --font-primary: {STYLE_CONFIG["font_primary"]};
                 --font-mono: {STYLE_CONFIG["font_mono"]};
                 --border-radius: {STYLE_CONFIG["border_radius"]}px;
