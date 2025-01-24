@@ -1,12 +1,20 @@
 [theme]
-base = "light"  # Cambia a "dark" si prefieres un tema oscuro
-primaryColor = "#4A90E2"  # Azul para elementos primarios
-backgroundColor = "#FFFFFF"  # Blanco como fondo principal
-secondaryBackgroundColor = "#F4F4F4"  # Gris claro para fondo secundario
-textColor = "#333333"  # Texto en gris oscuro
+primaryColor = "#4A90E2"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F7F7"  # Actualizado para coincidir
+textColor = "#333333"
+font = "DM Sans"  # Agregar fuente principal
+base = "light"
+
+# Desactivar temas automáticos
+enableDarkTheme = false
+
+[browser]
+gatherUsageStats = false
 
 [server]
 port = 8501
 enableCORS = false
 fileWatcherType = "poll"
 headless = true
+enableThemeExtension = false
