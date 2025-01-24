@@ -1,24 +1,15 @@
 import streamlit as st
 
-def configure_page_style():
-   # Configuración inicial de la página
-   st.set_page_config(
-       page_title="Generador de Imágenes con IA",
-       layout="centered",
-       initial_sidebar_state="collapsed"
-   )
+STYLE_CONFIG = {
+   "primary_color": "#4A90E2",
+   "secondary_color": "#2D8B72",
+   "text_color": "#333333",
+   "color_subtle": "#E0E0E0",
+   "background_color": "#FFFFFF",
+   "background_secondary": "#F7F7F7"
+}
 
-   # Variables de estilo
-   STYLE_CONFIG = {
-       "primary_color": "#4A90E2",
-       "secondary_color": "#2D8B72",
-       "text_color": "#333333",
-       "color_subtle": "#E0E0E0",
-       "background_color": "#FFFFFF",
-       "background_secondary": "#F7F7F7"
-   }
-   
-   # Estilos CSS mínimos que funcionan en Streamlit Cloud
+def configure_style_markdown():
    st.markdown("""
        <style>
        div.stMarkdown h1 {
@@ -38,7 +29,4 @@ def configure_page_style():
        }
        </style>
    """, unsafe_allow_html=True)
-
-if __name__ == "__main__":
-   configure_page_style()
    
