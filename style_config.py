@@ -6,7 +6,7 @@ STYLE_CONFIG = {
    "accent_color": "#AEA434",       # Olive
    "background_color": "#FFFFFF",   
    "subtle_color": "#CBCADC",       # Baby Blue
-   "text_primary": "#2D2B3F",       # Dark purple
+   "text_primary": "#333333",       # Dark purple
    "text_secondary": "#4A4860",     # Medium purple
    "base_spacing": 12,
    "border_radius": 8,
@@ -32,13 +32,15 @@ def configure_page_style():
            --color-subtle: {STYLE_CONFIG["subtle_color"]};
            --color-text-primary: {STYLE_CONFIG["text_primary"]};
            --color-text-secondary: {STYLE_CONFIG["text_secondary"]};
+           --color-background: {STYLE_CONFIG["background_color"]};
            --font-primary: {STYLE_CONFIG["font_primary"]};
            --font-mono: {STYLE_CONFIG["font_mono"]};
        }}
 
        .stApp {{
-           font-family: var(--font-primary);
+           background-color: var(--color-background);
            color: var(--color-text-primary);
+           font-family: var(--font-primary);
        }}
 
        /* Títulos */
@@ -47,7 +49,6 @@ def configure_page_style():
            font-weight: 700;
            font-size: 2rem;
            line-height: 1.2;
-           letter-spacing: -0.02em;
            color: var(--color-text-primary);
            margin-bottom: 1.5rem;
        }}
@@ -56,29 +57,17 @@ def configure_page_style():
            font-family: var(--font-primary);
            font-weight: 500;
            font-size: 1.6rem;
-           letter-spacing: -0.01em;
            color: var(--color-text-primary);
            margin-bottom: 1rem;
        }}
 
-       /* Text Areas */
-       .stTextArea textarea,
-       .stCodeEditor > div {{
-           font-family: var(--font-mono);
-           font-size: 0.9375rem;
-           line-height: 1.5;
-       }}
-
        /* Botones */
        .stButton > button {{
-           font-family: var(--font-primary);
-           font-weight: 500;
            background-color: var(--color-primary) !important;
            color: white !important;
            padding: 0.75rem 1.5rem;
-           border: none;
            border-radius: 8px;
-           transition: opacity 0.3s ease;
+           font-family: var(--font-primary);
        }}
 
        .stButton > button:hover {{
