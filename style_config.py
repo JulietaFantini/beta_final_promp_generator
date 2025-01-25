@@ -29,8 +29,6 @@ def configure_page_style():
             font-size: 1.8rem !important;
             color: {STYLE_CONFIG["primary_color"]} !important;
             margin-bottom: 0.4rem !important;
-            border-bottom: 2px solid {STYLE_CONFIG["primary_color"]};
-            padding-bottom: 0.2rem;
         }}
 
         h2 {{
@@ -58,33 +56,18 @@ def configure_page_style():
 
         /* Botones */
         .stButton > button {{
-            background-color: {STYLE_CONFIG["primary_color"]} !important;
+            background-color: {STYLE_CONFIG["secondary_color"]} !important; /* Cambiamos a verde */
             color: white !important;
             padding: 0.4rem 1rem !important;
             font-size: 1rem !important;
             border-radius: 8px !important;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease;
         }}
 
         .stButton > button:hover {{
-            background-color: {STYLE_CONFIG["secondary_color"]} !important;
-            transform: scale(1.02);
-        }}
-
-        /* Área de texto grande en Pantalla 2 */
-        textarea.large-textarea {{
-            height: 150px !important;
-        }}
-
-        /* Sección de herramientas (Pantalla 2) */
-        .tool-section {{
-            margin-top: 1rem !important;
-            padding: 1rem !important;
-            border: 1px solid {STYLE_CONFIG["color_subtle"]} !important;
-            border-radius: 8px !important;
-            background-color: {STYLE_CONFIG["background_secondary"]} !important;
+            background-color: #1B6F56 !important; /* Hover más oscuro para verde */
         }}
 
         /* Enlaces */
