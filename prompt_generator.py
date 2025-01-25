@@ -134,7 +134,7 @@ class PromptGenerator:
                         subproposito, 
                         self._normalizar_texto(subproposito)
                     )
-                    proposito += f", {self.TEMPLATE_BASE['subproposito']} {subproposito_mapped}"
+                    proposito += f" {self.TEMPLATE_BASE['subproposito']} {subproposito_mapped}"
                 if not proposito.endswith('.'):
                     proposito += '.'
                 partes.append(proposito)
@@ -164,7 +164,7 @@ class PromptGenerator:
                     f"{self.TEMPLATE_BASE['composicion']} {self._normalizar_texto(params['composicion'])}"
                 )
             if aspectos_tecnicos:
-                tecnicos = ", ".join(aspectos_tecnicos)
+                tecnicos = ". ".join(aspectos_tecnicos)
                 if not tecnicos.endswith('.'):
                     tecnicos += '.'
                 partes.append(tecnicos)
@@ -180,7 +180,7 @@ class PromptGenerator:
                     f"{self.TEMPLATE_BASE['textura']} {self._normalizar_texto(params['textura'])}"
                 )
             if aspectos_visuales:
-                visuales = ", ".join(aspectos_visuales)
+                visuales = ". ".join(aspectos_visuales)
                 if not visuales.endswith('.'):
                     visuales += '.'
                 partes.append(visuales)
@@ -194,7 +194,7 @@ class PromptGenerator:
                 aspecto = params['aspecto'].split(" (")[0]
                 specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto}")
             if specs:
-                specs_str = ", ".join(specs)
+                specs_str = ". ".join(specs)
                 if not specs_str.endswith('.'):
                     specs_str += '.'
                 partes.append(specs_str)
@@ -211,4 +211,3 @@ class PromptGenerator:
         except Exception as e:
             print(f"Error al generar prompt: {str(e)}")
             return "Error al generar el prompt. Por favor, verifica los parámetros."
-
