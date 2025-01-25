@@ -1,5 +1,3 @@
-import streamlit as st
-
 STYLE_CONFIG = {
     "primary_color": "#4A90E2",
     "secondary_color": "#2D8B72",
@@ -10,35 +8,38 @@ STYLE_CONFIG = {
 }
 
 def configure_page_style():
-    """
-    Configura estilos globales para la aplicación de Streamlit.
-    """
     st.markdown(f"""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=DM+Mono:wght@400&display=swap');
-
-        /* Estilo global */
-        html, body, [class*="css"] {{
-            font-family: 'DM Sans', sans-serif !important;
-            color: {STYLE_CONFIG["text_color"]} !important;
+        
+        /* Global */
+        .stApp, [data-testid="stAppViewContainer"] {{
             background-color: {STYLE_CONFIG["background_color"]} !important;
         }}
 
-        /* Títulos */
-        h1 {{
+        /* Headers - DM Sans */
+        h1, .stMarkdown h1 {{
+            font-family: 'DM Sans', sans-serif !important;
             font-size: 1.8rem !important;
             color: {STYLE_CONFIG["primary_color"]} !important;
             margin-bottom: 0.4rem !important;
         }}
 
-        h2 {{
+        h2, .stMarkdown h2 {{
+            font-family: 'DM Sans', sans-serif !important;
             font-size: 1.5rem !important;
             color: {STYLE_CONFIG["secondary_color"]} !important;
             margin-bottom: 0.3rem !important;
         }}
 
-        /* Campos de entrada */
-        input, textarea {{
+        /* Text - DM Sans */
+        .stMarkdown p {{
+            font-family: 'DM Sans', sans-serif !important;
+            color: {STYLE_CONFIG["text_color"]} !important;
+        }}
+
+        /* Inputs - DM Mono */
+        .stTextInput input, .stTextArea textarea, .stSelectbox select {{
             font-family: 'DM Mono', monospace !important;
             font-size: 0.9rem !important;
             padding: 0.4rem !important;
@@ -48,37 +49,37 @@ def configure_page_style():
             background-color: {STYLE_CONFIG["background_secondary"]} !important;
         }}
 
-        input:focus, textarea:focus {{
-            border: 1px solid {STYLE_CONFIG["primary_color"]} !important;
-            box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+        .stTextInput input:focus, .stTextArea textarea:focus, .stSelectbox select:focus {{
+            border-color: {STYLE_CONFIG["primary_color"]} !important;
+            box-shadow: 0 0 4px rgba(74, 144, 226, 0.5) !important;
             outline: none !important;
         }}
 
-        /* Botones */
+        /* Buttons */
         .stButton > button {{
-            background-color: {STYLE_CONFIG["secondary_color"]} !important; /* Cambiamos a verde */
+            font-family: 'DM Sans', sans-serif !important;
+            background-color: {STYLE_CONFIG["secondary_color"]} !important;
             color: white !important;
             padding: 0.4rem 1rem !important;
             font-size: 1rem !important;
             border-radius: 8px !important;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            border: none !important;
+            transition: background-color 0.3s ease !important;
         }}
 
         .stButton > button:hover {{
-            background-color: #1B6F56 !important; /* Hover más oscuro para verde */
+            background-color: #1B6F56 !important;
         }}
 
-        /* Enlaces */
+        /* Links */
         a {{
             color: {STYLE_CONFIG["primary_color"]} !important;
             text-decoration: none !important;
         }}
-
+        
         a:hover {{
             text-decoration: underline !important;
         }}
-
         </style>
     """, unsafe_allow_html=True)
+    
