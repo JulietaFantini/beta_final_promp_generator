@@ -11,7 +11,7 @@ STYLE_CONFIG = {
 
 def configure_page_style():
     """
-    Configura estilos globales para Pantalla 1.
+    Configura estilos globales para la aplicación de Streamlit.
     """
     st.markdown(f"""
         <style>
@@ -71,6 +71,30 @@ def configure_page_style():
         .stButton > button:hover {{
             background-color: {STYLE_CONFIG["secondary_color"]} !important;
             transform: scale(1.02);
+        }}
+
+        /* Área de texto grande en Pantalla 2 */
+        textarea.large-textarea {{
+            height: 150px !important;
+        }}
+
+        /* Sección de herramientas (Pantalla 2) */
+        .tool-section {{
+            margin-top: 1rem !important;
+            padding: 1rem !important;
+            border: 1px solid {STYLE_CONFIG["color_subtle"]} !important;
+            border-radius: 8px !important;
+            background-color: {STYLE_CONFIG["background_secondary"]} !important;
+        }}
+
+        /* Enlaces */
+        a {{
+            color: {STYLE_CONFIG["primary_color"]} !important;
+            text-decoration: none !important;
+        }}
+
+        a:hover {{
+            text-decoration: underline !important;
         }}
 
         </style>
