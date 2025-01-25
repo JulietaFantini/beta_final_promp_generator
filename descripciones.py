@@ -1,5 +1,3 @@
-# Diccionarios descriptivos organizados según la lógica de Pantalla 1
-
 TIPO_IMAGEN_DESCRIPCIONES = {
     "Fotografía": "Ideal para imágenes realistas.",
     "Ilustración": "Perfecta para expresiones artísticas.",
@@ -35,7 +33,7 @@ PROPUESTA_PROPOSITO = {
     ],
     "Innovación y Experimentación": [
         "Proyectos Futuristas: Exploración de ideas futuras.",
-        "Exploraciones Técnicas: Innovación en estilos."  
+        "Exploraciones Técnicas: Innovación en estilos."
     ],
     "Técnico y Educativo": [
         "Infografías STEM: Comunicación visual de datos.", 
@@ -45,7 +43,7 @@ PROPUESTA_PROPOSITO = {
     "Entretenimiento Digital": [
         "Storyboarding: Secuencias visuales narrativas.", 
         "Diseño de Personajes: Creación de personajes únicos.",
-        "Arte Conceptual: Visualización para proyectos."  
+        "Arte Conceptual: Visualización para proyectos."
     ]
 }
 
@@ -85,7 +83,7 @@ PALETA_DESCRIPCIONES = {
     "Tetrádico": "Riqueza, dos pares de complementarios.",
     "Pasteles": "Suavidad, colores pálidos.", 
     "Cálidos": "Energía, rojos, naranjas, amarillos.",
-    "Saturados": "Intensidad, colores puros y brillantes."  
+    "Saturados": "Intensidad, colores puros y brillantes."
 }
 
 TEXTURA_DESCRIPCIONES = {
@@ -99,20 +97,20 @@ TEXTURA_DESCRIPCIONES = {
 }
 
 RESOLUCION_DESCRIPCIONES = {
-    "300x300 px (Miniaturas)": "Miniaturas o pequeños íconos",
-    "800x800 px (E-commerce)": "Imágenes de productos",
-    "1200x628 px (Redes/Anuncios)": "Redes sociales, enlaces", 
-    "1280x720 px (HD General)": "Contenido general, banners",
-    "1920x1080 px (Full HD)": "Fondos o encabezados",
-    "2560x1440 px (Quad HD)": "Fondos pantallas grandes"
+    "300x300 px (Miniaturas)": "Miniaturas o pequeños íconos.",
+    "800x800 px (E-commerce)": "Imágenes de productos.",
+    "1200x628 px (Redes/Anuncios)": "Redes sociales, enlaces.", 
+    "1280x720 px (HD General)": "Contenido general, banners.",
+    "1920x1080 px (Full HD)": "Fondos o encabezados.",
+    "2560x1440 px (Quad HD)": "Fondos pantallas grandes."
 }
 
 ASPECTO_DESCRIPCIONES = {
-    "1:1 (Cuadrado)": "Publicaciones en redes sociales",  
-    "4:3 (Estándar)": "Pantallas antiguas, impresión",
-    "16:9 (Pantalla ancha)": "Banners, HD video",
-    "3:2 (Fotografía)": "Impresiones fotográficas", 
-    "5:4 (Casi cuadrado)": "Portadas de libros, afiches", 
-    "2:1 (Panorámica)": "Encabezados de sitios web",
-    "9:16 (Vertical)": "Historias en redes, móvil"
+    "1:1 (Cuadrado)": "Publicaciones en redes sociales.",  
+    "4:3 (Estándar)": "Pantallas antiguas, impresión.",
+    "16:9 (Pantalla ancha)": "Banners, HD video.",
+    "3:2 (Fotografía)": "Impresiones fotográficas.", 
+    "5:4 (Casi cuadrado)": "Portadas de libros, afiches.", 
+    "2:1 (Panorámica)": "Encabezados de sitios web.",
+    "9:16 (Vertical)": "Historias en redes, móvil."
 }
