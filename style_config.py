@@ -1,3 +1,8 @@
+Agregamos la importación de streamlit al inicio del archivo:
+
+```python
+import streamlit as st
+
 STYLE_CONFIG = {
     "primary_color": "#4A90E2",
     "secondary_color": "#2D8B72",
@@ -82,4 +87,4 @@ def configure_page_style():
         }}
         </style>
     """, unsafe_allow_html=True)
-    
+```
