@@ -24,9 +24,8 @@ def boton_copiar(text, label="Copiar texto"):
     <head></head>
     <body>
         <button onclick="navigator.clipboard.writeText('{text_escaped}');
-                         alert('¡Texto copiado al portapapeles!');
-                "
-                style="cursor:pointer;">
+                         alert('¡Texto copiado al portapapeles!');"
+                style="cursor:pointer; background-color: #4A90E2; color: white; border: none; padding: 10px 15px; font-size: 14px; border-radius: 5px;">
             {label}
         </button>
     </body>
@@ -36,14 +35,13 @@ def boton_copiar(text, label="Copiar texto"):
     # st.components.v1.html 'inyecta' este HTML/JS en un iframe
     components.html(html_code, height=40)
 
-
 def configurar_pantalla2():
     # Verificar si se proporcionaron datos de la Pantalla 1
     if "params" not in st.session_state or not st.session_state["params"]:
         st.warning("No se han proporcionado datos de la Pantalla 1. Volvé y completá los campos obligatorios.")
         if st.button("Volver a Pantalla 1"):
             st.session_state.mostrar_pantalla2 = False
-            st.experimental_rerun()
+            st.rerun()
         return
 
     # Generar el prompt si no está en session_state
@@ -74,25 +72,22 @@ def configurar_pantalla2():
         "Traducilo y copialo directamente desde acá."
     )
 
-    if st.button("Traducir al inglés"):
-        if st.session_state["prompt_editado"].strip():
-            try:
-                translator = Translator()
-                traduccion = translator.translate(
-                    st.session_state["prompt_editado"], src='es', dest='en'
-                ).text
-                st.session_state["traduccion_ingles"] = traduccion
+    if st.button("Traducir al inglés", disabled=not st.session_state["prompt_editado"].strip()):
+        try:
+            translator = Translator()
+            traduccion = translator.translate(
+                st.session_state["prompt_editado"], src='es', dest='en'
+            ).text
+            st.session_state["traduccion_ingles"] = traduccion
 
-                st.text_area(
-                    "Traducción al inglés:", 
-                    value=traduccion, 
-                    height=200,
-                    disabled=True
-                )
-            except Exception as e:
-                st.error(f"Error al traducir el texto: {e}")
-        else:
-            st.warning("El texto está vacío. No hay nada que traducir.")
+            st.text_area(
+                "Traducción al inglés:", 
+                value=traduccion, 
+                height=200,
+                disabled=True
+            )
+        except Exception as e:
+            st.error(f"Error al traducir el texto: {e}")
 
     if "traduccion_ingles" in st.session_state:
         boton_copiar(
@@ -121,7 +116,7 @@ def configurar_pantalla2():
     # Botón para generar un nuevo prompt
     if st.button("Generar un nuevo prompt"):
         st.session_state.mostrar_pantalla2 = False
-        st.experimental_rerun()
+        st.rerun()
 
     # Pie de página
     st.markdown(
@@ -137,4 +132,3 @@ def configurar_pantalla2():
 # --------------------------------------------------------------------------------
 if __name__ == "__main__":
     configurar_pantalla2()
-
