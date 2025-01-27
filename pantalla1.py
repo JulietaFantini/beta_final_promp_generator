@@ -1,5 +1,5 @@
-```python
 import streamlit as st
+
 from descripciones import (
     TIPO_IMAGEN_DESCRIPCIONES,
     ESTILO_DESCRIPCIONES,
