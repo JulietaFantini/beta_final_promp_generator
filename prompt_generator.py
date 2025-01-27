@@ -1,5 +1,12 @@
+from typing import Dict
+
 class PromptGenerator:
-    # ...
+     """
+    Clase para generar prompts optimizados para generación de imágenes con IA.
+    
+    Esta clase procesa diferentes parámetros de entrada y los transforma en 
+    un prompt coherente y descriptivo para plataformas de generación de imágenes.
+    """
 
     def generar_prompt(self, params: Dict) -> str:
         try:
