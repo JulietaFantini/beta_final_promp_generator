@@ -98,13 +98,13 @@ def configure_page_style():
         font-family: 'DM Mono', Menlo, monospace !important;
     }}
 
-    /* 5) BOTONES (en DM Mono). Ocupan ancho automático en Desktop */
-   .stButton > button {
-    width: 100% !important;                /* Ocupa todo el contenedor */
-    font: 500 1rem 'DM Sans', sans-serif !important;  /* Fuente DM Sans */
+  /* BOTONES CON ANCHO COMPLETO Y FUENTE DM SANS */
+.stButton > button {
+    width: 100% !important;           /* Ocupa todo el contenedor */
+    font: 500 1rem 'DM Sans', sans-serif !important;
     padding: 0.8rem 1.2rem !important;
-    background: #2D8B72 !important;         /* Color verde (secondary) */
-    color: white !important;
+    background: #2D8B72 !important;   /* Color verde (secondary) */
+    color: #FFFFFF !important;        /* Texto en blanco */
     border-radius: 8px !important;
     border: none !important;
     margin-top: 1.2rem !important;
