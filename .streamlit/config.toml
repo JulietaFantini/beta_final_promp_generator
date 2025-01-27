@@ -4,7 +4,8 @@ primaryColor = "#4A90E2"
 backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F7F7F7"
 textColor = "#333333"
-font = "DM Sans"
+# Cambiamos DM Sans por sans serif (valor permitido)
+font = "sans serif"
 
 [browser]
 gatherUsageStats = false
@@ -13,7 +14,8 @@ gatherUsageStats = false
 port = 8501
 fileWatcherType = "poll"
 headless = true
-# Si necesitas forzar CORS desactivado, añade:
+
+# Si deseas desactivar la protección CSRF y CORS (no recomendado en producción),
+# descomenta estas líneas:
 # enableCORS = false
 # enableXsrfProtection = false
-# (Pero no es recomendable en producción)
