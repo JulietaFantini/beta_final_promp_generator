@@ -191,4 +191,4 @@ class PromptGenerator:
                 resolucion = params['resolucion'].split(" (")[0]
                 specs.append(f"{self.TEMPLATE_BASE['resolucion']} {resolucion}")
             if params.get('aspecto') not in valores_invalidos:
-                aspecto = params['aspecto'].
+                aspecto = params['aspecto'].split("
