@@ -175,4 +175,3 @@ def configurar_pantalla1():
 
 if __name__ == "__main__":
     configurar_pantalla1()
-```
