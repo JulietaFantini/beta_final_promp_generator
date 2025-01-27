@@ -99,27 +99,22 @@ def configure_page_style():
     }}
 
     /* 5) BOTONES (en DM Mono). Ocupan ancho automático en Desktop */
-    .stButton > button,
-    .stButton > button * {{
-        font-family: 'DM Mono', Menlo, monospace !important;
-    }}
-    .stButton > button {{
-        display: inline-block !important; 
-        width: auto !important; /* Ajuste a su contenido */
-        font-size: 1rem !important;
-        font-weight: 500 !important;
-        padding: 0.8rem 1.2rem !important;
-        background-color: {DESIGN_SYSTEM["colors"]["secondary"]} !important;
-        color: #FFFFFF !important;
-        border-radius: 8px !important;
-        border: none !important;
-        margin-top: 1.2rem !important;
-        transition: opacity 0.2s !important;
-        cursor: pointer !important;
-    }}
-    .stButton > button:hover {{
-        opacity: 0.9 !important;
-    }}
+   .stButton > button {
+    width: 100% !important;                /* Ocupa todo el contenedor */
+    font: 500 1rem 'DM Sans', sans-serif !important;  /* Fuente DM Sans */
+    padding: 0.8rem 1.2rem !important;
+    background: #2D8B72 !important;         /* Color verde (secondary) */
+    color: white !important;
+    border-radius: 8px !important;
+    border: none !important;
+    margin-top: 1.2rem !important;
+    transition: opacity 0.2s !important;
+    cursor: pointer !important;
+}
+
+.stButton > button:hover {
+    opacity: 0.9 !important;
+}
 
     /* 6) TEXTO AUXILIAR (DM Sans) */
     .stMarkdown small,
