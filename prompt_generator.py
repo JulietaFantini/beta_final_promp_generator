@@ -1,7 +1,7 @@
 from typing import Dict
 
 class PromptGenerator:
-     """
+    """
     Clase para generar prompts optimizados para generación de imágenes con IA.
     
     Esta clase procesa diferentes parámetros de entrada y los transforma en 
