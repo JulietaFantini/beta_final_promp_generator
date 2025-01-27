@@ -1,9 +1,10 @@
 import streamlit as st
 
+# Diccionario con tus colores y espaciados
 DESIGN_SYSTEM = {
     "colors": {
-        "primary": "#4A90E2",          # azul
-        "secondary": "#2D8B72",        # verde
+        "primary": "#4A90E2",          # Azul principal
+        "secondary": "#2D8B72",        # Verde secundario
         "text": "#333333", 
         "subtle": "#E0E0E0",
         "background": "#FFFFFF",
@@ -19,139 +20,40 @@ DESIGN_SYSTEM = {
 
 def configure_page_style():
     """
-    Inyecta un CSS 'agresivo' para sobreescribir 
-    cualquier hoja de estilo que fuerce otra fuente.
-    
-    - DM Sans como fuente global (con !important y selectores potentes).
-    - DM Mono para formularios y botones (opcional).
-    - Colores 'primary' y 'secondary' para h1, h2 y botones, 
-      con !important.
-    - Incluimos un test en body para color de fondo (amarillo) 
-      que podrás cambiar una vez confirmes que se aplica.
+    Inyecta CSS de forma sencilla:
+    - DM Sans como fuente global.
+    - Botones al 100% de ancho en color "secondary".
+    - Puedes agregar más reglas (h1, h2, forms, etc.) si lo deseas.
     """
-    st.markdown(f"""
+    st.markdown("""
     <style>
-    /* 1) Importar DM Sans y DM Mono con fallback */
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400&display=swap');
+    /* 1) Fuente Global: DM Sans */
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-    /* 2) ESTILO GLOBAL */
-    /* Selectores potentes: html, body, .block-container, [class^="st"] */
-    /* Forzamos DM Sans y un color de fondo vistoso para confirmar. */
-    html, body, .block-container, [class^="st"], #root {{
+    /* Aplica DM Sans a todo el contenido Streamlit */
+    html, body, [class^="st"] {
         font-family: 'DM Sans', -apple-system, BlinkMacSystemFont,
                       "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-        color: {DESIGN_SYSTEM["colors"]["text"]} !important;
-        background-color: {DESIGN_SYSTEM["colors"]["background"]} !important;
-    }}
+        color: #333333 !important; /* Ajusta si deseas, o usa un color del dict */
+        background-color: #FFFFFF !important; /* Fondo blanco */
+    }
 
-    /* (Opcional) Test de color de fondo global 
-       para comprobar que SE aplica tu CSS. */
-    /* body {{
-        background-color: yellow !important;
-    }} */
-
-    /* 3) HEADERS */
-    .stMarkdown h1, h1 {{
-        font-family: 'DM Sans', sans-serif !important;
-        font-weight: 700 !important;
-        font-size: 2rem !important;
-        line-height: 1.2 !important;
-        color: {DESIGN_SYSTEM["colors"]["primary"]} !important;
-        margin-bottom: 1.2rem !important;
-        border-bottom: 2px solid {DESIGN_SYSTEM["colors"]["primary"]} !important;
-        padding-bottom: 0.4rem !important;
-    }}
-    .stMarkdown h2, h2 {{
-        font-family: 'DM Sans', sans-serif !important;
-        font-weight: 600 !important;
-        font-size: 1.5rem !important;
-        line-height: 1.3 !important;
-        color: {DESIGN_SYSTEM["colors"]["secondary"]} !important;
-        margin-bottom: 0.8rem !important;
-    }}
-
-    /* 4) FORMULARIOS (en DM Mono) */
-    [data-testid="stTextInput"] input,
-    [data-testid="stTextArea"] textarea,
-    [data-testid="stSelectbox"] select {{
-        font-family: 'DM Mono', Menlo, monospace !important;
-        font-size: 0.9rem !important;
-        padding: 0.8rem !important;
-        border: 1px solid {DESIGN_SYSTEM["colors"]["subtle"]} !important;
+    /* 2) Botones ocupando todo el ancho, con fondo verde "secondary" */
+    .stButton > button {
+        width: 100% !important;
+        font: 500 1rem 'DM Sans', sans-serif !important;
+        padding: 0.8rem 1.2rem !important;
+        background-color: #2D8B72 !important; /* Verde secondary */
+        color: #FFFFFF !important;
         border-radius: 8px !important;
-        background: {DESIGN_SYSTEM["colors"]["background_secondary"]} !important;
-        margin-bottom: 0.4rem !important;
-        transition: all 0.2s ease !important;
-    }}
+        border: none !important;
+        margin-top: 1.2rem !important;
+        transition: opacity 0.2s !important;
+        cursor: pointer !important;
+    }
 
-    /* FOCO en formularios */
-    [data-testid="stTextInput"] input:focus,
-    [data-testid="stTextArea"] textarea:focus,
-    [data-testid="stSelectbox"] select:focus {{
-        outline: none !important;
-        border-color: {DESIGN_SYSTEM["colors"]["primary"]} !important;
-        background: #FFFFFF !important;
-    }}
-
-    /* Forzar DM Mono también para el contenido interno del select */
-    [data-testid="stSelectbox"] * {{
-        font-family: 'DM Mono', Menlo, monospace !important;
-    }}
-
-  /* BOTONES CON ANCHO COMPLETO Y FUENTE DM SANS */
-.stButton > button {
-    width: 100% !important;           /* Ocupa todo el contenedor */
-    font: 500 1rem 'DM Sans', sans-serif !important;
-    padding: 0.8rem 1.2rem !important;
-    background: #2D8B72 !important;   /* Color verde (secondary) */
-    color: #FFFFFF !important;        /* Texto en blanco */
-    border-radius: 8px !important;
-    border: none !important;
-    margin-top: 1.2rem !important;
-    transition: opacity 0.2s !important;
-    cursor: pointer !important;
-}
-
-.stButton > button:hover {
-    opacity: 0.9 !important;
-}
-
-    /* 6) TEXTO AUXILIAR (DM Sans) */
-    .stMarkdown small,
-    .helper-text {{
-        font: 400 0.9rem 'DM Sans', sans-serif !important;
-        color: {DESIGN_SYSTEM["colors"]["text"]} !important;
-        opacity: 0.8 !important;
-    }}
-
-    /* 7) VISTA MÓVIL */
-    @media (max-width: 768px) {{
-        /* Ajuste de titulares */
-        .stMarkdown h1, h1 {{
-            font-size: 1.7rem !important;
-        }}
-        .stMarkdown h2, h2 {{
-            font-size: 1.3rem !important;
-            margin-bottom: 0.6rem !important;
-        }}
-        /* Botones a 100% de ancho en móvil */
-        .stButton > button {{
-            width: 100% !important;
-        }}
-        /* Inputs/Select un poco más chicos */
-        [data-testid="stTextInput"] input,
-        [data-testid="stTextArea"] textarea,
-        [data-testid="stSelectbox"] select {{
-            font-size: 0.85rem !important;
-        }}
-    }}
+    .stButton > button:hover {
+        opacity: 0.9 !important;
+    }
     </style>
-    """,
-    unsafe_allow_html=True)
-
-def init_page_config():
-    st.set_page_config(
-        page_title="Mi App con Estilos Reforzados",
-        layout="wide",
-        initial_sidebar_state="collapsed"
-    )
+    """, unsafe_allow_html=True)
