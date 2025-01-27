@@ -30,4 +30,3 @@ try:
        configurar_pantalla2()
    else:
        configurar_pantalla1()
-ex
