@@ -119,7 +119,7 @@ class PromptGenerator:
                 if params.get('idea_inicial') not in valores_invalidos:
                     prompt_inicial += f" {self.TEMPLATE_BASE['representar']} {self._normalizar_texto(params['idea_inicial'])}"
                 if not prompt_inicial.endswith('.'):
-                    prompt_inicial += '.'
+                    prompt_inicial += ','
                 partes.append(prompt_inicial)
             
             # 2. Propósito y subpropósito
@@ -135,8 +135,8 @@ class PromptGenerator:
                         self._normalizar_texto(subproposito)
                     )
                     proposito += f" {self.TEMPLATE_BASE['subproposito']} {subproposito_mapped}"
-                if not proposito.endswith('.'):
-                    proposito += '.'
+                if not proposito.endswith(','):
+                    proposito += ','
                 partes.append(proposito)
             
             # 3. Estilo artístico
