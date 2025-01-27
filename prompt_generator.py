@@ -108,6 +108,20 @@ class PromptGenerator:
         oraciones = [oracion.strip().capitalize() for oracion in texto.split('.') if oracion]
         return '. '.join(oraciones) + ('.' if texto.endswith('.') else '')
 
+    @staticmethod
+    def _es_valor_valido(valor: str) -> bool:
+        """
+        Verifica si un valor es válido y no pertenece a una lista de valores inválidos.
+        
+        Args:
+            valor (str): Valor a verificar
+        
+        Returns:
+            bool: True si el valor es válido, False en caso contrario
+        """
+        valores_invalidos = {"Elegí una opción...", "", None}
+        return valor not in valores_invalidos
+
     def generar_prompt(self, params: Dict) -> str:
         """
         Genera un prompt completo basado en los parámetros proporcionados.
@@ -149,29 +163,36 @@ class PromptGenerator:
             # 4. Aspectos técnicos
             aspectos_tecnicos = []
             if iluminacion := params.get('iluminación'):
-                aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['iluminacion']} {self._normalizar_texto(iluminacion)}")
+                if self._es_valor_valido(iluminacion):
+                    aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['iluminacion']} {self._normalizar_texto(iluminacion)}")
             if plano := params.get('plano_fotográfico'):
-                aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['plano']} {self._normalizar_texto(plano)}")
+                if self._es_valor_valido(plano):
+                    aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['plano']} {self._normalizar_texto(plano)}")
             if composicion := params.get('composicion'):
-                aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['composicion']} {self._normalizar_texto(composicion)}")
+                if self._es_valor_valido(composicion):
+                    aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['composicion']} {self._normalizar_texto(composicion)}")
             if aspectos_tecnicos:
                 partes.append(", ".join(aspectos_tecnicos) + '.')
             
             # 5. Aspectos visuales
             aspectos_visuales = []
             if paleta := params.get('paleta_de_colores'):
-                aspectos_visuales.append(f"{self.TEMPLATE_BASE['paleta']} {self._normalizar_texto(paleta)}")
+                if self._es_valor_valido(paleta):
+                    aspectos_visuales.append(f"{self.TEMPLATE_BASE['paleta']} {self._normalizar_texto(paleta)}")
             if textura := params.get('textura'):
-                aspectos_visuales.append(f"{self.TEMPLATE_BASE['textura']} {self._normalizar_texto(textura)}")
+                if self._es_valor_valido(textura):
+                    aspectos_visuales.append(f"{self.TEMPLATE_BASE['textura']} {self._normalizar_texto(textura)}")
             if aspectos_visuales:
                 partes.append(" y ".join(aspectos_visuales) + '.')
             
             # 6. Resolución y aspecto
             specs = []
             if resolucion := params.get('resolucion'):
-                specs.append(f"{self.TEMPLATE_BASE['resolucion']} {resolucion.split(' (')[0]}")
+                if self._es_valor_valido(resolucion):
+                    specs.append(f"{self.TEMPLATE_BASE['resolucion']} {resolucion.split(' (')[0]}")
             if aspecto := params.get('aspecto'):
-                specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto.split(' (')[0]}")
+                if self._es_valor_valido(aspecto):
+                    specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto.split(' (')[0]}")
             if specs:
                 partes.append(". ".join(specs) + '.')
             
