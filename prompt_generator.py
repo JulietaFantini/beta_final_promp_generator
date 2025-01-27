@@ -94,6 +94,20 @@ class PromptGenerator:
             return texto
         return texto.lower().strip()
 
+    @staticmethod
+    def _capitalizar_despues_de_punto(texto: str) -> str:
+        """
+        Capitaliza la primera letra después de cada punto en un texto.
+
+        Args:
+            texto (str): Texto a ajustar
+
+        Returns:
+            str: Texto ajustado con mayúsculas después de puntos
+        """
+        oraciones = [oracion.strip().capitalize() for oracion in texto.split('.') if oracion]
+        return '. '.join(oraciones) + ('.' if texto.endswith('.') else '')
+
     def generar_prompt(self, params: Dict) -> str:
         """
         Genera un prompt completo basado en los parámetros proporcionados.
@@ -201,7 +215,7 @@ class PromptGenerator:
             
             # Construir el prompt final como un solo párrafo
             prompt = " ".join(partes)
-            prompt = prompt.strip()
+            prompt = self._capitalizar_despues_de_punto(prompt.strip())
             
             if not prompt.endswith('.'):
                 prompt += '.'
