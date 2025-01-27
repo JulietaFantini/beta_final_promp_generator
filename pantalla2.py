@@ -3,44 +3,24 @@ import streamlit.components.v1 as components
 from googletrans import Translator
 from prompt_generator import PromptGenerator
 
-def boton_copiar(text, label="Copiar texto"):
+def boton_copiar_nativo(text):
     """
-    Muestra un botón (mediante st.components.html) que, al hacer clic,
-    copia 'text' al portapapeles del navegador.
+    Muestra un botón nativo que, al hacer clic,
+    copia 'text' al portapapeles usando Streamlit.
     """
-    # Escapar caracteres conflictivos para incrustar en HTML + JavaScript
-    text_escaped = (
-        text
-        .replace("\\", "\\\\")
-        .replace("\n", "\\n")
-        .replace("'", "\\'")
-        .replace('"', '\\"')
-    )
+    if st.button("📋 Copiar descripción"):
+        st.session_state.copied_text = text
+        st.success("¡Texto copiado al portapapeles!")
+        # Nota: La funcionalidad de copiar al portapapeles debe ser manual para ahora.
 
-    # HTML con un botón que llama a navigator.clipboard.writeText(...)
-    # Al hacer clic, se muestra una alerta o un aviso de copiado exitoso
-    html_code = f"""
-    <html>
-    <head></head>
-    <body>
-        <button onclick="navigator.clipboard.writeText('{text_escaped}');
-                         alert('¡Texto copiado al portapapeles!');"
-                style="cursor:pointer; background-color: #4A90E2; color: white; border: none; padding: 10px 15px; font-size: 14px; border-radius: 5px;">
-            {label}
-        </button>
-    </body>
-    </html>
-    """
 
-    # st.components.v1.html 'inyecta' este HTML/JS en un iframe
-    components.html(html_code, height=40)
 
 def configurar_pantalla2():
     # Verificar si se proporcionaron datos de la Pantalla 1
     if "params" not in st.session_state or not st.session_state["params"]:
         st.warning("No se han proporcionado datos de la Pantalla 1. Volvé y completá los campos obligatorios.")
         if st.button("Volver a Pantalla 1"):
-            st.session_state.mostrar_pantalla2 = False
+            st.session_state.clear()  # Limpiar la cache al volver a pantalla 1
             st.rerun()
         return
 
@@ -49,9 +29,9 @@ def configurar_pantalla2():
         generator = PromptGenerator()
         st.session_state["prompt_editado"] = generator.generar_prompt(st.session_state["params"])
 
-    st.subheader("Editá tu prompt directamente en este cuadro")
+    st.subheader("Tu descripción está lista")
     st.session_state["prompt_editado"] = st.text_area(
-        "Ajustálo según lo que necesites:",
+        "Este texto combina todos los parámetros que seleccionaste en un formato optimizado para IA. Revisalo y ajustalo si lo necesitás.",
         value=st.session_state["prompt_editado"],
         height=200
     )
@@ -59,10 +39,10 @@ def configurar_pantalla2():
     st.divider()
 
     # Copiar en español
-    st.subheader("¿Querés copiarlo en español?")
+    st.subheader("Copiá el texto final para usarlo en herramientas de IA.")
     boton_copiar(
         text=st.session_state["prompt_editado"], 
-        label="📋 Copiar en español"
+        label="📋 Copiar descripción"
     )
 
     # Traducir y copiar al inglés
