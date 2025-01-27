@@ -8,7 +8,6 @@ class PromptGenerator:
     un prompt coherente y descriptivo para plataformas de generación de imágenes.
     """
 
-    # Definiciones necesarias
     TEMPLATE_BASE = {
         "inicio": "Imagina",
         "representar": "que represente",
@@ -115,11 +114,11 @@ class PromptGenerator:
                         else self.TIPOS_MAPPING.get(params["tipo_de_imagen"], 
                                                   f"una {params['tipo_de_imagen'].lower()}"))
                 
-                prompt_inicial = f"{self.TEMPLATE_BASE['inicio']} {tipo}"
+                prompt_inicial = f"{self.TEMPLATE_BASE['inicio']} {tipo},"
                 if params.get('idea_inicial') not in valores_invalidos:
                     prompt_inicial += f" {self.TEMPLATE_BASE['representar']} {self._normalizar_texto(params['idea_inicial'])}"
                 if not prompt_inicial.endswith('.'):
-                    prompt_inicial += ','
+                    prompt_inicial += '.'
                 partes.append(prompt_inicial)
             
             # 2. Propósito y subpropósito
@@ -128,15 +127,15 @@ class PromptGenerator:
                 mapping = self.PROPOSITOS_MAPPING.get(categoria, {})
                 
                 proposito = f"{self.TEMPLATE_BASE['proposito']} {mapping.get('base', self._normalizar_texto(categoria))}"
-                if params.get('subpropósito') not in valores_invalidos:
-                    subproposito = params['subpropósito']
+                if params.get('subproposito') not in valores_invalidos:
+                    subproposito = params['subproposito']
                     subproposito_mapped = mapping.get('subpropositos', {}).get(
                         subproposito, 
                         self._normalizar_texto(subproposito)
                     )
-                    proposito += f" {self.TEMPLATE_BASE['subproposito']} {subproposito_mapped}"
-                if not proposito.endswith(','):
-                    proposito += ','
+                    proposito += f", {self.TEMPLATE_BASE['subproposito']} {subproposito_mapped}"
+                if not proposito.endswith('.'):
+                    proposito += '.'
                 partes.append(proposito)
             
             # 3. Estilo artístico
@@ -144,9 +143,7 @@ class PromptGenerator:
                 estilo = (params.get('estilo_artístico_personalizado', '')
                          if params['estilo_artístico'] == "Otro"
                          else params['estilo_artístico'])
-                estilo_frase = f"{self.TEMPLATE_BASE['estilo']} {self._normalizar_texto(estilo)}"
-                if not estilo_frase.endswith('.'):
-                    estilo_frase += '.'
+                estilo_frase = f"{self.TEMPLATE_BASE['estilo']} {self._normalizar_texto(estilo)}."
                 partes.append(estilo_frase)
             
             # 4. Aspectos técnicos
@@ -164,9 +161,8 @@ class PromptGenerator:
                     f"{self.TEMPLATE_BASE['composicion']} {self._normalizar_texto(params['composicion'])}"
                 )
             if aspectos_tecnicos:
-                tecnicos = ". ".join(aspectos_tecnicos)
-                if not tecnicos.endswith('.'):
-                    tecnicos += '.'
+                tecnicos = ", ".join(aspectos_tecnicos)
+                tecnicos += '.'
                 partes.append(tecnicos)
             
             # 5. Aspectos visuales
@@ -180,9 +176,8 @@ class PromptGenerator:
                     f"{self.TEMPLATE_BASE['textura']} {self._normalizar_texto(params['textura'])}"
                 )
             if aspectos_visuales:
-                visuales = ". ".join(aspectos_visuales)
-                if not visuales.endswith('.'):
-                    visuales += '.'
+                visuales = " y ".join(aspectos_visuales)
+                visuales += '.'
                 partes.append(visuales)
             
             # 6. Resolución y aspecto
@@ -195,16 +190,12 @@ class PromptGenerator:
                 specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto}")
             if specs:
                 specs_str = ". ".join(specs)
-                if not specs_str.endswith('.'):
-                    specs_str += '.'
+                specs_str += '.'
                 partes.append(specs_str)
             
             # Construir el prompt final como un solo párrafo
             prompt = " ".join(partes)
             prompt = prompt.strip()
-            
-            if not prompt.endswith('.'):
-                prompt += '.'
             
             return prompt
             
