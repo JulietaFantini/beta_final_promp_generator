@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 
 DESIGN_SYSTEM = {
@@ -103,4 +102,3 @@ def init_page_config():
         layout="wide",
         initial_sidebar_state="collapsed"
     )
-```
