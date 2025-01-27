@@ -1,116 +1,124 @@
 import streamlit as st
 
-# Diccionario de diseño ampliado
 DESIGN_SYSTEM = {
     "colors": {
-        "primary": "#4A90E2",
-        "secondary": "#2D8B72",
-        "text": "#333333", 
-        "subtle": "#E0E0E0",
-        "background": "#FFFFFF",
-        "background_secondary": "#F7F7F7",
-        "error": "#E53935"
-    },
-    "fonts": {
-        "primary": "'DM Sans', sans-serif",
-        "secondary": "'DM Mono', monospace"
-    },
-    "shadows": {
-        "soft": "0 2px 8px rgba(0, 0, 0, 0.1)",
-        "hard": "0 4px 12px rgba(0, 0, 0, 0.2)"
+        "primary": "#4A90E2",       # Azul principal 
+        "secondary": "#2D8B72",     # Verde secundario
+        "text": "#333333",          # Texto principal
+        "subtle": "#E0E0E0",        # Gris suave
+        "background": "#FFFFFF",     # Fondo principal
+        "background_secondary": "#F7F7F7"  # Fondo secundario
     }
 }
 
 def configure_page_style():
     """
-    Inyecta estilos personalizados con mejoras de especificidad y rendimiento
+    Configura los estilos de la aplicación Streamlit.
+    Usa selectores específicos de Streamlit y mantiene la consistencia del diseño.
     """
     st.markdown(f"""
     <style>
-    /* ===== 1. Fuentes Globales ===== */
+    /* 1. Importar fuentes */
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400&display=swap');
-    
-    *:not(pre):not(code) {{
-        font-family: {DESIGN_SYSTEM["fonts"]["primary"]} !important;
+
+    /* 2. Estilos base */
+    .stApp {{
+        background-color: {DESIGN_SYSTEM["colors"]["background"]};
+    }}
+
+    /* 3. Títulos y texto */
+    .stMarkdown h1 {{
+        font-family: 'DM Sans', sans-serif !important;
+        color: {DESIGN_SYSTEM["colors"]["primary"]} !important;
+        font-weight: 700 !important;
+        font-size: 2rem !important;
+        border-bottom: 2px solid {DESIGN_SYSTEM["colors"]["primary"]};
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }}
+
+    .stMarkdown h2 {{
+        font-family: 'DM Sans', sans-serif !important;
+        color: {DESIGN_SYSTEM["colors"]["secondary"]} !important;
+        font-weight: 500 !important;
+        font-size: 1.5rem !important;
+        margin-top: 1.5rem !important;
+    }}
+
+    /* 4. Campos de entrada y texto */
+    /* Inputs */
+    div[data-baseweb="input"] input,
+    div[data-baseweb="textarea"] textarea {{
+        font-family: 'DM Mono', monospace !important;
+        font-size: 0.9rem !important;
+        background-color: {DESIGN_SYSTEM["colors"]["background_secondary"]} !important;
+        border: 1px solid {DESIGN_SYSTEM["colors"]["subtle"]} !important;
+        transition: all 0.2s ease !important;
+    }}
+
+    div[data-baseweb="input"] input:focus,
+    div[data-baseweb="textarea"] textarea:focus {{
+        border-color: {DESIGN_SYSTEM["colors"]["primary"]} !important;
+        background-color: {DESIGN_SYSTEM["colors"]["background"]} !important;
+    }}
+
+    /* Selectores */
+    div[data-baseweb="select"] .stSelectbox {{
+        font-family: 'DM Mono', monospace !important;
+    }}
+
+    div[data-baseweb="select"] select {{
+        font-family: 'DM Mono', monospace !important;
+        font-size: 0.9rem !important;
+        background-color: {DESIGN_SYSTEM["colors"]["background_secondary"]} !important;
+        border: 1px solid {DESIGN_SYSTEM["colors"]["subtle"]} !important;
+    }}
+
+    /* 5. Botones */
+    .stButton > button {{
+        font-family: 'DM Mono', monospace !important;
+        font-weight: 500 !important;
+        background-color: {DESIGN_SYSTEM["colors"]["secondary"]} !important;
+        color: white !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 0.375rem !important;
+        border: none !important;
+        transition: opacity 0.2s ease !important;
+    }}
+
+    .stButton > button:hover {{
+        opacity: 0.9 !important;
+    }}
+
+    /* 6. Radio buttons y Checkboxes */
+    .stRadio label,
+    .stCheckbox label {{
+        font-family: 'DM Sans', sans-serif !important;
         color: {DESIGN_SYSTEM["colors"]["text"]} !important;
     }}
-    
-    /* ===== 2. Componentes Principales ===== */
-    /* ----- Títulos ----- */
-    [data-testid="stMarkdown"] h1 {{
-        font: 700 2rem/1.2 {DESIGN_SYSTEM["fonts"]["primary"]} !important;
-        color: {DESIGN_SYSTEM["colors"]["primary"]} !important;
-        border-bottom: 2px solid {DESIGN_SYSTEM["colors"]["primary"]} !important;
-        padding-bottom: 0.4rem !important;
-        margin-bottom: 1.5rem !important;
+
+    /* 7. Sliders y número inputs */
+    .stSlider div[data-baseweb="slider"],
+    div[data-baseweb="spinbutton"] {{
+        font-family: 'DM Mono', monospace !important;
     }}
-    
-    [data-testid="stMarkdown"] h2 {{
-        font: 500 1.5rem/1.3 {DESIGN_SYSTEM["fonts"]["primary"]} !important;
-        color: {DESIGN_SYSTEM["colors"]["secondary"]} !important;
-        margin-bottom: 1rem !important;
+
+    /* 8. Mensajes de error y advertencia */
+    .stAlert {{
+        font-family: 'DM Sans', sans-serif !important;
+        border-radius: 0.375rem !important;
+        padding: 0.75rem 1rem !important;
     }}
-    
-    /* ----- Botones (Primary) ----- */
-    [data-testid="baseButton-primary"] {{
-        font-family: {DESIGN_SYSTEM["fonts"]["secondary"]} !important;
-        background: {DESIGN_SYSTEM["colors"]["secondary"]} !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 0.8rem 1.5rem !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: {DESIGN_SYSTEM["shadows"]["soft"]} !important;
+
+    /* 9. Elementos de navegación */
+    .stSidebar {{
+        background-color: {DESIGN_SYSTEM["colors"]["background_secondary"]} !important;
     }}
-    
-    [data-testid="baseButton-primary"]:hover {{
-        transform: translateY(-1px) !important;
-        box-shadow: {DESIGN_SYSTEM["shadows"]["hard"]} !important;
-        opacity: 0.95 !important;
-    }}
-    
-    /* ----- Campos de Entrada ----- */
-    [data-testid="stTextInput"] > div > div,
-    [data-testid="stTextArea"] > div > div,
-    [data-testid="stSelectbox"] > div {{
-        background: {DESIGN_SYSTEM["colors"]["background_secondary"]} !important;
-        border: 1px solid {DESIGN_SYSTEM["colors"]["subtle"]} !important;
-        border-radius: 8px !important;
-        transition: border-color 0.3s !important;
-    }}
-    
-    [data-testid="stTextInput"] input,
-    [data-testid="stTextArea"] textarea {{
-        font-family: {DESIGN_SYSTEM["fonts"]["secondary"]} !important;
-        padding: 0.8rem !important;
-    }}
-    
-    /* Focus State */
-    [data-testid="stTextInput"] > div > div:focus-within,
-    [data-testid="stTextArea"] > div > div:focus-within {{
-        border-color: {DESIGN_SYSTEM["colors"]["primary"]} !important;
-        box-shadow: 0 0 0 2px {DESIGN_SYSTEM["colors"]["primary"]}20 !important;
-    }}
-    
-    /* ===== 3. Layout y Utilidades ===== */
-    /* Sidebar */
-    section[data-testid="stSidebar"] > div {{
-        background: {DESIGN_SYSTEM["colors"]["background_secondary"]} !important;
-        border-right: 1px solid {DESIGN_SYSTEM["colors"]["subtle"]} !important;
-    }}
-    
-    /* Espaciado entre componentes */
-    .stHorizontalBlock, .stVerticalBlock {{
-        gap: 1rem !important;
-    }}
-    
-    /* ===== 4. Mensajes de Error ===== */
-    [data-testid="stNotification"] {{
-        font-family: {DESIGN_SYSTEM["fonts"]["primary"]} !important;
-        background: {DESIGN_SYSTEM["colors"]["error"]}15 !important;
-        border-left: 4px solid {DESIGN_SYSTEM["colors"]["error"]} !important;
-        color: {DESIGN_SYSTEM["colors"]["error"]} !important;
-    }}
+
+    /* 10. Ocultar elementos si es necesario */
+    #MainMenu {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+
     </style>
     """, unsafe_allow_html=True)
     
