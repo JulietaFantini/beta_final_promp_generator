@@ -22,112 +22,146 @@ def configurar_pantalla1():
     def render_selectbox(label, key, opciones, descripciones):
         """
         Renderiza un selectbox y muestra una descripción opcional.
+        La etiqueta del selectbox está establecida a una cadena vacía para eliminarla visualmente.
         """
-        params[key] = st.selectbox(label, ["Elegí una opción..."] + opciones)
+        params[key] = st.selectbox("", ["Elegí una opción..."] + opciones, key=key)
         if params[key] != "Elegí una opción...":
             st.markdown(descripciones.get(params[key], ""))
 
-    # Tipo de Imagen
+    # 1. Tipo de Imagen
     st.subheader("¿Qué tipo de imagen querés?")
+    st.markdown(
+        "Fotografía para realismo, ilustración para libertad creativa, render 3D para productos, arte conceptual para ideas abstractas."
+    )
     render_selectbox(
-        "Tipo de Imagen",
+        "",
         "tipo_de_imagen",
         list(TIPO_IMAGEN_DESCRIPCIONES.keys()),
         TIPO_IMAGEN_DESCRIPCIONES
     )
 
-    # Idea Inicial
+    # 2. Idea Inicial
     st.subheader("¿Qué te imaginás?")
+    st.markdown(
+        "Describe los elementos principales y el ambiente deseado. Por ejemplo: 'Ciudad futurista al amanecer con rascacielos de cristal.'"
+    )
     params["idea_inicial"] = st.text_input(
-        "Idea Inicial",
+        "Idea Inicial",  # Esta etiqueta permanece visible ya que es una entrada de texto
         value=params.get("idea_inicial", ""),
         placeholder="Ej.: 'Una ciudad flotante al amanecer'"
     )
 
-    # Propósito y Subpropósito
-    st.subheader("Propósito de la Imagen")
-    render_selectbox(
-        "Seleccioná un propósito:",
-        "proposito_categoria",
-        list(PROPUESTA_PROPOSITO.keys()),
-        {}
+    # 3. Estilo Artístico
+    st.subheader("Estilo Artístico")
+    st.markdown(
+        "Digital para efectos modernos, clásico para elegancia tradicional, minimalista para simpleza, surrealista para combinaciones oníricas."
     )
-    if params["proposito_categoria"] != "Elegí una opción...":
-        subpropositos = PROPUESTA_PROPOSITO[params["proposito_categoria"]]
-        render_selectbox(
-            "Seleccioná un subpropósito:",
-            "subproposito",
-            subpropositos,
-            {}
-        )
-
-    # Estilo Artístico
-    st.subheader("Estilo")
     render_selectbox(
-        "Estilo",
+        "",
         "estilo_artístico",
         list(ESTILO_DESCRIPCIONES.keys()),
         ESTILO_DESCRIPCIONES
     )
 
-    # Iluminación
-    st.subheader("Iluminación")
+    # 4. Propósito
+    st.subheader("Propósito")
+    st.markdown(
+        "Marketing requiere claridad, arte permite experimentación. El propósito influye en la composición y el enfoque final."
+    )
     render_selectbox(
-        "Seleccioná la iluminación",
+        "",
+        "proposito_categoria",
+        list(PROPUESTA_PROPOSITO.keys()),
+        {}
+    )
+    if params.get("proposito_categoria") and params["proposito_categoria"] != "Elegí una opción...":
+        subpropositos = PROPUESTA_PROPOSITO[params["proposito_categoria"]]
+        st.markdown(
+            "Selecciona un subpropósito que se alinee con tu propósito principal."
+        )
+        render_selectbox(
+            "",
+            "subproposito",
+            subpropositos,
+            {}
+        )
+
+    # 5. Iluminación
+    st.subheader("Iluminación")
+    st.markdown(
+        "Natural para realismo, artificial para control creativo. Las sombras dramáticas añaden profundidad."
+    )
+    render_selectbox(
+        "",
         "iluminación",
         list(ILUMINACION_DESCRIPCIONES.keys()),
         ILUMINACION_DESCRIPCIONES
     )
 
-    # Plano Fotográfico
+    # 6. Plano Fotográfico
     st.subheader("Plano Fotográfico")
+    st.markdown(
+        "Primer plano destaca detalles, plano general muestra contexto, cenital ofrece vista superior."
+    )
     render_selectbox(
-        "Seleccioná el plano fotográfico",
+        "",
         "plano_fotográfico",
         list(PLANO_DESCRIPCIONES.keys()),
         PLANO_DESCRIPCIONES
     )
 
-    # Composición
+    # 7. Composición
     st.subheader("Composición")
+    st.markdown(
+        "Simetría para equilibrio, regla de tercios para dinamismo, líneas dominantes guían la mirada."
+    )
     render_selectbox(
-        "Seleccioná la composición",
+        "",
         "composicion",
         list(COMPOSICION_DESCRIPCIONES.keys()),
         COMPOSICION_DESCRIPCIONES
     )
 
-    # Paleta de Colores
+    # 8. Paleta de Colores
     st.subheader("Paleta de Colores")
+    st.markdown(
+        "Monocromático para elegancia, complementarios para contraste, análogos para armonía."
+    )
     render_selectbox(
-        "Seleccioná la paleta de colores",
+        "",
         "paleta_de_colores",
         list(PALETA_DESCRIPCIONES.keys()),
         PALETA_DESCRIPCIONES
     )
 
-    # Textura
+    # 9. Textura
     st.subheader("Textura")
+    st.markdown(
+        "Suave para delicadeza, rugosa para carácter, metálica para modernidad."
+    )
     render_selectbox(
-        "Seleccioná la textura",
+        "",
         "textura",
         list(TEXTURA_DESCRIPCIONES.keys()),
         TEXTURA_DESCRIPCIONES
     )
 
-    # Resolución y Formato
-    st.subheader("Resolución y Formato")
+    # 10. Tamaño y Forma
+    st.subheader("Tamaño y Forma")
+    st.markdown(
+        "Mayor resolución permite más detalle. Formato cuadrado para balance, panorámico para paisajes, vertical para móvil."
+    )
     col1, col2 = st.columns(2)
     with col1:
         render_selectbox(
-            "Seleccioná una resolución",
+            "",
             "resolucion",
             list(RESOLUCION_DESCRIPCIONES.keys()),
             RESOLUCION_DESCRIPCIONES
         )
     with col2:
         render_selectbox(
-            "Seleccioná una proporción",
+            "",
             "aspecto",
             list(ASPECTO_DESCRIPCIONES.keys()),
             ASPECTO_DESCRIPCIONES
@@ -157,4 +191,3 @@ def configurar_pantalla1():
 
 if __name__ == "__main__":
     configurar_pantalla1()
-
