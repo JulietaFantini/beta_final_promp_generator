@@ -43,7 +43,7 @@ def configurar_pantalla1():
     # 2. Idea Inicial
     st.subheader("¿Qué te imaginás?")
     st.markdown(
-        "Describe los elementos principales y el ambiente deseado. Por ejemplo: 'Ciudad futurista al amanecer con rascacielos de cristal.'"
+        "Describí los elementos principales y el ambiente deseado."
     )
     params["idea_inicial"] = st.text_input(
         "Idea Inicial",  # Esta etiqueta permanece visible ya que es una entrada de texto
@@ -77,7 +77,7 @@ def configurar_pantalla1():
     if params.get("proposito_categoria") and params["proposito_categoria"] != "Elegí una opción...":
         subpropositos = PROPUESTA_PROPOSITO[params["proposito_categoria"]]
         st.markdown(
-            "Selecciona un subpropósito que se alinee con tu propósito principal."
+            "Seleccioná un subpropósito que se alinee con tu propósito principal."
         )
         render_selectbox(
             "",
