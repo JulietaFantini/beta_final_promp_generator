@@ -4,7 +4,7 @@ primaryColor = "#4A90E2"
 backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F7F7F7"
 textColor = "#333333"
-# Cambiamos DM Sans por sans serif (valor permitido)
+# Solo valores "sans serif", "serif" o "monospace" son válidos.
 font = "sans serif"
 
 [browser]
@@ -14,8 +14,3 @@ gatherUsageStats = false
 port = 8501
 fileWatcherType = "poll"
 headless = true
-
-# Si deseas desactivar la protección CSRF y CORS (no recomendado en producción),
-# descomenta estas líneas:
-# enableCORS = false
-# enableXsrfProtection = false
