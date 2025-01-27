@@ -8,7 +8,102 @@ class PromptGenerator:
     un prompt coherente y descriptivo para plataformas de generación de imágenes.
     """
 
+    # Definiciones necesarias
+    TEMPLATE_BASE = {
+        "inicio": "Imagina",
+        "representar": "que represente",
+        "proposito": "creada para",
+        "subproposito": "orientada hacia",
+        "estilo": "con el estilo visual del",
+        "iluminacion": "La imagen debe iluminarse con",
+        "plano": "capturada desde un",
+        "composicion": "siguiendo una composición de",
+        "paleta": "Debe tener una paleta de colores",
+        "textura": "y una textura",
+        "resolucion": "Finalmente, la resolución debe ser",
+        "aspecto": "con una relación de aspecto de"
+    }
+
+    TIPOS_MAPPING = {
+        "Fotografía": "una fotografía",
+        "Ilustración": "una ilustración", 
+        "Render 3D": "un render 3D",
+        "Pintura digital": "una pintura digital",
+        "Arte conceptual": "una pieza de arte conceptual",
+        "Collage surrealista": "un collage surrealista",
+        "Dibujo técnico": "un dibujo técnico",
+        "Fotografía conceptual": "una fotografía conceptual"
+    }
+
+    PROPOSITOS_MAPPING = {
+        "Comercial y Marketing": {
+            "base": "uso comercial y marketing",
+            "subpropositos": {
+                "Publicidad": "publicidad visual",
+                "Branding Visual": "branding visual",
+                "Campañas Digitales": "campañas digitales"
+            }
+        },
+        "Arte y Decoración": {
+            "base": "arte y decoración",
+            "subpropositos": {
+                "Arte Conceptual": "arte conceptual",
+                "Diseño Ambiental": "diseño ambiental",
+                "Arte Personalizado": "arte personalizado"
+            }
+        },
+        "Innovación y Experimentación": {
+            "base": "innovación y experimentación",
+            "subpropositos": {
+                "Proyectos Futuristas": "proyectos futuristas", 
+                "Exploraciones Técnicas": "exploraciones técnicas"
+            }
+        },
+        "Técnico y Educativo": {
+            "base": "uso técnico y educativo",
+            "subpropositos": {
+                "Infografías STEM": "infografías STEM",
+                "Material Educativo": "material educativo",
+                "Diagramas Técnicos": "diagramas técnicos"
+            }
+        },
+        "Entretenimiento Digital": {
+            "base": "entretenimiento digital",
+            "subpropositos": {
+                "Storyboarding": "storyboarding",
+                "Diseño de Personajes": "diseño de personajes", 
+                "Arte Conceptual": "arte conceptual"
+            }
+        }
+    }
+
+    @staticmethod
+    def _normalizar_texto(texto: str) -> str:
+        """
+        Normaliza el texto, manteniendo términos técnicos en mayúsculas.
+        
+        Args:
+            texto (str): Texto a normalizar
+        
+        Returns:
+            str: Texto normalizado
+        """
+        if not texto:
+            return ""
+        if any(x in texto for x in ["STEM", "3D", "HD", "px"]):
+            return texto
+        return texto.lower().strip()
+
     def generar_prompt(self, params: Dict) -> str:
+        """
+        Genera un prompt completo basado en los parámetros proporcionados.
+        
+        Args:
+            params (Dict): Diccionario de parámetros para generar el prompt
+        
+        Returns:
+            str: Prompt generado
+        """
         try:
             partes = []
             valores_invalidos = {"Elegí una opción...", "", None}
