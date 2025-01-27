@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 from descripciones import (
     TIPO_IMAGEN_DESCRIPCIONES,
@@ -12,7 +13,6 @@ from descripciones import (
     PROPUESTA_PROPOSITO
 )
 
-# Pantalla 1: Configuración inicial
 def configurar_pantalla1():
     st.title("Creá imágenes con IA")
     st.markdown("Generá las imágenes describiendo lo que querés ver. Empecemos con lo básico.")
@@ -20,15 +20,10 @@ def configurar_pantalla1():
     params = st.session_state.get("params", {})
 
     def render_selectbox(label, key, opciones, descripciones):
-        """
-        Renderiza un selectbox y muestra una descripción opcional.
-        La etiqueta del selectbox está establecida a una cadena vacía para eliminarla visualmente.
-        """
-        params[key] = st.selectbox("", ["Elegí una opción..."] + opciones, key=key)
+        params[key] = st.selectbox(" ", ["Elegí una opción..."] + opciones, key=key, label_visibility="collapsed")
         if params[key] != "Elegí una opción...":
             st.markdown(descripciones.get(params[key], ""))
 
-    # 1. Tipo de Imagen
     st.subheader("¿Qué tipo de imagen querés?")
     st.markdown(
         "Fotografía para realismo, ilustración para libertad creativa, render 3D para productos, arte conceptual para ideas abstractas."
@@ -40,18 +35,16 @@ def configurar_pantalla1():
         TIPO_IMAGEN_DESCRIPCIONES
     )
 
-    # 2. Idea Inicial
     st.subheader("¿Qué te imaginás?")
     st.markdown(
         "Describí los elementos principales y el ambiente deseado."
     )
     params["idea_inicial"] = st.text_input(
-        "Idea Inicial",  # Esta etiqueta permanece visible ya que es una entrada de texto
+        "Idea Inicial",
         value=params.get("idea_inicial", ""),
         placeholder="Ej.: 'Una ciudad flotante al amanecer'"
     )
 
-    # 3. Estilo Artístico
     st.subheader("Estilo Artístico")
     st.markdown(
         "Digital para efectos modernos, clásico para elegancia tradicional, minimalista para simpleza, surrealista para combinaciones oníricas."
@@ -63,7 +56,6 @@ def configurar_pantalla1():
         ESTILO_DESCRIPCIONES
     )
 
-    # 4. Propósito
     st.subheader("Propósito")
     st.markdown(
         "Marketing requiere claridad, arte permite experimentación. El propósito influye en la composición y el enfoque final."
@@ -86,7 +78,6 @@ def configurar_pantalla1():
             {}
         )
 
-    # 5. Iluminación
     st.subheader("Iluminación")
     st.markdown(
         "Natural para realismo, artificial para control creativo. Las sombras dramáticas añaden profundidad."
@@ -98,7 +89,6 @@ def configurar_pantalla1():
         ILUMINACION_DESCRIPCIONES
     )
 
-    # 6. Plano Fotográfico
     st.subheader("Plano Fotográfico")
     st.markdown(
         "Primer plano destaca detalles, plano general muestra contexto, cenital ofrece vista superior."
@@ -110,7 +100,6 @@ def configurar_pantalla1():
         PLANO_DESCRIPCIONES
     )
 
-    # 7. Composición
     st.subheader("Composición")
     st.markdown(
         "Simetría para equilibrio, regla de tercios para dinamismo, líneas dominantes guían la mirada."
@@ -122,7 +111,6 @@ def configurar_pantalla1():
         COMPOSICION_DESCRIPCIONES
     )
 
-    # 8. Paleta de Colores
     st.subheader("Paleta de Colores")
     st.markdown(
         "Monocromático para elegancia, complementarios para contraste, análogos para armonía."
@@ -134,7 +122,6 @@ def configurar_pantalla1():
         PALETA_DESCRIPCIONES
     )
 
-    # 9. Textura
     st.subheader("Textura")
     st.markdown(
         "Suave para delicadeza, rugosa para carácter, metálica para modernidad."
@@ -146,7 +133,6 @@ def configurar_pantalla1():
         TEXTURA_DESCRIPCIONES
     )
 
-    # 10. Tamaño y Forma
     st.subheader("Tamaño y Forma")
     st.markdown(
         "Mayor resolución permite más detalle. Formato cuadrado para balance, panorámico para paisajes, vertical para móvil."
@@ -167,10 +153,8 @@ def configurar_pantalla1():
             ASPECTO_DESCRIPCIONES
         )
 
-    # Guardar parámetros en session_state
     st.session_state["params"] = params
 
-    # Validar y pasar a la siguiente pantalla
     if st.button("Continuar"):
         errores = []
         if params["tipo_de_imagen"] == "Elegí una opción...":
@@ -191,3 +175,4 @@ def configurar_pantalla1():
 
 if __name__ == "__main__":
     configurar_pantalla1()
+```
