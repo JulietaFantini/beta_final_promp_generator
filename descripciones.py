@@ -6,7 +6,6 @@ TIPO_IMAGEN_DESCRIPCIONES = {
     "Arte conceptual": "Explora ideas visualmente.",
     "Collage surrealista": "Combina elementos inesperados.",
     "Dibujo técnico": "Precisión y enfoque funcional.", 
-    "Otro": "Personaliza el tipo de imagen."
 }
 
 ESTILO_DESCRIPCIONES = {
@@ -17,7 +16,6 @@ ESTILO_DESCRIPCIONES = {
     "Cubismo": "Formas geométricas abstractas.",
     "Impresionismo": "Colores suaves y atmósfera.",
     "Surrealismo": "Elementos creativos inesperados.",
-    "Otro": "Definí tu propio estilo."
 }
 
 PROPUESTA_PROPOSITO = {
