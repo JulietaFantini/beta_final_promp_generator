@@ -98,7 +98,7 @@ def configurar_pantalla2():
     st.subheader("¿Dónde lo podés usar?")
     st.markdown(
         """
-        Estas son las principales herramientas donde podés pegar tu prompt generado para crear imágenes:
+        Estas son las algunas herramientas donde podés pegar tu prompt generado para crear imágenes:
         
         - [**DALL-E**](https://openai.com/dall-e): Pegá tu prompt para generar imágenes con precisión **realista**.
         - [**MidJourney**](https://www.midjourney.com): Usalo para crear arte **detallado** y estético.
@@ -117,8 +117,8 @@ def configurar_pantalla2():
     st.markdown(
         """
         ---
-        Este trabajo es parte de un proyecto final de un curso de IA. 
-        Para consultas, escribí a **julietafantini@gmail.com**.
+        La app es parte de un proyecto final de un curso de IA. 
+        Para consultas y feedback, escribí a **julietafantini@gmail.com**.
         """
     )
 
