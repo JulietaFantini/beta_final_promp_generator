@@ -3,17 +3,39 @@ import streamlit.components.v1 as components
 from googletrans import Translator
 from prompt_generator import PromptGenerator
 
-def boton_copiar_nativo(text):
+def boton_copiar(text, label="📋 Copiar descripción"):
     """
-    Muestra un botón nativo que, al hacer clic,
-    copia 'text' al portapapeles usando Streamlit.
+    Muestra un botón (mediante st.components.html) que, al hacer clic,
+    copia 'text' al portapapeles del navegador, con un estilo más cercano al botón nativo.
     """
-    if st.button("📋 Copiar descripción"):
-        st.session_state.copied_text = text
-        st.success("¡Texto copiado al portapapeles!")
-        # Nota: La funcionalidad de copiar al portapapeles debe ser manual para ahora.
+    text_escaped = (
+        text
+        .replace("\\", "\\\\")
+        .replace("\n", "\\n")
+        .replace("'", "\\'")
+        .replace('"', '\\"')
+    )
 
+    # CSS personalizado para emular un estilo de botón nativo de Streamlit
+    button_style = (
+        "cursor:pointer; background-color: #E8E8E8; color: #000; border: 1px solid #ccc; "
+        "padding: 6px 12px; font-size: 14px; border-radius: 4px;"
+    )
 
+    html_code = f"""
+    <html>
+    <head></head>
+    <body>
+        <button onclick="navigator.clipboard.writeText('{text_escaped}');
+                         alert('¡Texto copiado al portapapeles!');"
+                style="{button_style}">
+            {label}
+        </button>
+    </body>
+    </html>
+    """
+
+    components.html(html_code, height=40)
 
 def configurar_pantalla2():
     # Verificar si se proporcionaron datos de la Pantalla 1
@@ -36,10 +58,8 @@ def configurar_pantalla2():
         height=200
     )
 
-    st.divider()
-
     # Copiar en español
-    st.subheader("Copiá el texto final para usarlo en herramientas de IA.")
+    st.subheader("Copiá el texto final.")
     boton_copiar(
         text=st.session_state["prompt_editado"], 
         label="📋 Copiar descripción"
@@ -48,8 +68,7 @@ def configurar_pantalla2():
     # Traducir y copiar al inglés
     st.subheader("¿Preferís usarlo en inglés?")
     st.markdown(
-        "Algunas herramientas funcionan mejor con prompts en inglés. "
-        "Traducilo y copialo directamente desde acá."
+        "Algunas herramientas funcionan mejor con prompts en inglés. Presioná el botón para traducir y copiar tu texto."
     )
 
     if st.button("Traducir al inglés", disabled=not st.session_state["prompt_editado"].strip()):
@@ -67,15 +86,13 @@ def configurar_pantalla2():
                 disabled=True
             )
         except Exception as e:
-            st.error(f"Error al traducir el texto: {e}")
+            st.error("Ocurrió un problema al traducir. Verificá tu conexión a Internet o intentá de nuevo más tarde.")
 
     if "traduccion_ingles" in st.session_state:
         boton_copiar(
             text=st.session_state["traduccion_ingles"], 
             label="📋 Copiar traducción al inglés"
         )
-
-    st.divider()
 
     # Herramientas recomendadas
     st.subheader("¿Dónde lo podés usar?")
@@ -90,8 +107,6 @@ def configurar_pantalla2():
         - [**Copilot**](https://copilot.microsoft.com/chats/TdFWATF4rK5SLC6Lfo3qN): Una herramienta para potenciar la generación rápida de imágenes.
         """
     )
-
-    st.divider()
 
     # Botón para generar un nuevo prompt
     if st.button("Generar un nuevo prompt"):
