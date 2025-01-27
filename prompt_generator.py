@@ -120,44 +120,27 @@ class PromptGenerator:
         """
         try:
             partes = []
-            valores_invalidos = {"Elegí una opción...", "", None}
 
             # 1. Tipo de imagen con idea inicial
-            if params.get("tipo_de_imagen") not in valores_invalidos:
-                tipo = (params.get('tipo_de_imagen_personalizado', '')
-                        if params["tipo_de_imagen"] == "Otro"
-                        else self.TIPOS_MAPPING.get(params["tipo_de_imagen"], 
-                                                  f"una {params['tipo_de_imagen'].lower()}"))
-                
+            if tipo := self.TIPOS_MAPPING.get(params.get("tipo_de_imagen")):
                 prompt_inicial = f"{self.TEMPLATE_BASE['inicio']} {tipo}"
-                if params.get('idea_inicial') not in valores_invalidos:
-                    prompt_inicial += f" {self.TEMPLATE_BASE['representar']} {self._normalizar_texto(params['idea_inicial'])}"
+                if idea := params.get('idea_inicial'):
+                    prompt_inicial += f" {self.TEMPLATE_BASE['representar']} {self._normalizar_texto(idea)}"
                 if not prompt_inicial.endswith('.'):
                     prompt_inicial += '.'
                 partes.append(prompt_inicial)
             
             # 2. Propósito y subproposito
-            if params.get('proposito_categoria') not in valores_invalidos:
-                categoria = params['proposito_categoria']
-                mapping = self.PROPOSITOS_MAPPING.get(categoria, {})
-                
-                proposito = f"{self.TEMPLATE_BASE['proposito']} {mapping.get('base', self._normalizar_texto(categoria))}"
-                if params.get('subproposito') not in valores_invalidos:
-                    subproposito = params['subproposito'].split(":")[0].strip()  # Extraer solo la parte antes de ':'
-                    subproposito_mapped = mapping.get('subpropositos', {}).get(
-                        subproposito, 
-                        self._normalizar_texto(subproposito)
-                    )
-                    proposito += f", {self.TEMPLATE_BASE['subproposito']} {subproposito_mapped}"
+            if categoria := self.PROPOSITOS_MAPPING.get(params.get('proposito_categoria')):
+                proposito = f"{self.TEMPLATE_BASE['proposito']} {categoria['base']}"
+                if subproposito := categoria['subpropositos'].get(params.get('subproposito')):
+                    proposito += f", {self.TEMPLATE_BASE['subproposito']} {subproposito}"
                 if not proposito.endswith('.'):
                     proposito += '.'
                 partes.append(proposito)
             
             # 3. Estilo artístico
-            if params.get('estilo_artístico') not in valores_invalidos:
-                estilo = (params.get('estilo_artístico_personalizado', '')
-                         if params['estilo_artístico'] == "Otro"
-                         else params['estilo_artístico'])
+            if estilo := params.get('estilo_artístico'):
                 estilo_frase = f"{self.TEMPLATE_BASE['estilo']} {self._normalizar_texto(estilo)}"
                 if not estilo_frase.endswith('.'):
                     estilo_frase += '.'
@@ -165,58 +148,36 @@ class PromptGenerator:
             
             # 4. Aspectos técnicos
             aspectos_tecnicos = []
-            if params.get('iluminación') not in valores_invalidos:
-                aspectos_tecnicos.append(
-                    f"{self.TEMPLATE_BASE['iluminacion']} {self._normalizar_texto(params['iluminación'])}"
-                )
-            if params.get('plano_fotográfico') not in valores_invalidos:
-                aspectos_tecnicos.append(
-                    f"{self.TEMPLATE_BASE['plano']} {self._normalizar_texto(params['plano_fotográfico'])}"
-                )
-            if params.get('composicion') not in valores_invalidos:
-                aspectos_tecnicos.append(
-                    f"{self.TEMPLATE_BASE['composicion']} {self._normalizar_texto(params['composicion'])}"
-                )
+            if iluminacion := params.get('iluminación'):
+                aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['iluminacion']} {self._normalizar_texto(iluminacion)}")
+            if plano := params.get('plano_fotográfico'):
+                aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['plano']} {self._normalizar_texto(plano)}")
+            if composicion := params.get('composicion'):
+                aspectos_tecnicos.append(f"{self.TEMPLATE_BASE['composicion']} {self._normalizar_texto(composicion)}")
             if aspectos_tecnicos:
-                tecnicos = ", ".join(aspectos_tecnicos)
-                if not tecnicos.endswith('.'):
-                    tecnicos += '.'
-                partes.append(tecnicos)
+                partes.append(", ".join(aspectos_tecnicos) + '.')
             
             # 5. Aspectos visuales
             aspectos_visuales = []
-            if params.get('paleta_de_colores') not in valores_invalidos:
-                aspectos_visuales.append(
-                    f"{self.TEMPLATE_BASE['paleta']} {self._normalizar_texto(params['paleta_de_colores'])}"
-                )
-            if params.get('textura') not in valores_invalidos:
-                aspectos_visuales.append(
-                    f"{self.TEMPLATE_BASE['textura']} {self._normalizar_texto(params['textura'])}"
-                )
+            if paleta := params.get('paleta_de_colores'):
+                aspectos_visuales.append(f"{self.TEMPLATE_BASE['paleta']} {self._normalizar_texto(paleta)}")
+            if textura := params.get('textura'):
+                aspectos_visuales.append(f"{self.TEMPLATE_BASE['textura']} {self._normalizar_texto(textura)}")
             if aspectos_visuales:
-                visuales = " y ".join(aspectos_visuales)
-                if not visuales.endswith('.'):
-                    visuales += '.'
-                partes.append(visuales)
+                partes.append(" y ".join(aspectos_visuales) + '.')
             
             # 6. Resolución y aspecto
             specs = []
-            if params.get('resolucion') not in valores_invalidos:
-                resolucion = params['resolucion'].split(" (")[0]
-                specs.append(f"{self.TEMPLATE_BASE['resolucion']} {resolucion}")
-            if params.get('aspecto') not in valores_invalidos:
-                aspecto = params['aspecto'].split(" (")[0]
-                specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto}")
+            if resolucion := params.get('resolucion'):
+                specs.append(f"{self.TEMPLATE_BASE['resolucion']} {resolucion.split(' (')[0]}")
+            if aspecto := params.get('aspecto'):
+                specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto.split(' (')[0]}")
             if specs:
-                specs_str = ". ".join(specs)
-                if not specs_str.endswith('.'):
-                    specs_str += '.'
-                partes.append(specs_str)
+                partes.append(". ".join(specs) + '.')
             
             # Construir el prompt final como un solo párrafo
             prompt = " ".join(partes)
             prompt = self._capitalizar_despues_de_punto(prompt.strip())
-            
             if not prompt.endswith('.'):
                 prompt += '.'
             
