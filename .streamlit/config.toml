@@ -1,21 +1,19 @@
 [theme]
-# Base theme config
 base = "light"
-primaryColor = "#4A90E2"    
-backgroundColor = "#FFFFFF"  
+primaryColor = "#4A90E2"
+backgroundColor = "#FFFFFF"
 secondaryBackgroundColor = "#F7F7F7"
-textColor = "#333333"       
+textColor = "#333333"
 font = "DM Sans"
-
-# Disable automatic theme switching
-enableDarkTheme = false
 
 [browser]
 gatherUsageStats = false
 
 [server]
 port = 8501
-enableCORS = false
 fileWatcherType = "poll"
 headless = true
-enableThemeExtension = false
+# Si necesitas forzar CORS desactivado, añade:
+# enableCORS = false
+# enableXsrfProtection = false
+# (Pero no es recomendable en producción)
