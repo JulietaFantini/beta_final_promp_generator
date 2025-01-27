@@ -122,7 +122,7 @@ class PromptGenerator:
                     prompt_inicial += '.'
                 partes.append(prompt_inicial)
             
-            # 2. Propósito y subpropósito
+            # 2. Propósito y subproposito
             if params.get('proposito_categoria') not in valores_invalidos:
                 categoria = params['proposito_categoria']
                 mapping = self.PROPOSITOS_MAPPING.get(categoria, {})
@@ -191,4 +191,23 @@ class PromptGenerator:
                 resolucion = params['resolucion'].split(" (")[0]
                 specs.append(f"{self.TEMPLATE_BASE['resolucion']} {resolucion}")
             if params.get('aspecto') not in valores_invalidos:
-                aspecto = params['aspecto'].split("
+                aspecto = params['aspecto'].split(" (")[0]
+                specs.append(f"{self.TEMPLATE_BASE['aspecto']} {aspecto}")
+            if specs:
+                specs_str = ". ".join(specs)
+                if not specs_str.endswith('.'):
+                    specs_str += '.'
+                partes.append(specs_str)
+            
+            # Construir el prompt final como un solo párrafo
+            prompt = " ".join(partes)
+            prompt = prompt.strip()
+            
+            if not prompt.endswith('.'):
+                prompt += '.'
+            
+            return prompt
+            
+        except Exception as e:
+            print(f"Error al generar prompt: {str(e)}")
+            return "Error al generar el prompt. Por favor, verifica los parámetros."
