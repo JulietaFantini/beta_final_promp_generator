@@ -1,5 +1,5 @@
 import streamlit as st
-from styles_config import configure_page_style  # Ajusta el nombre si tu archivo se llama distinto
+from style_config import configure_page_style  # Ajusta el nombre si tu archivo se llama distinto
 
 # 1) Configura la página (título, layout, etc.)
 st.set_page_config(
