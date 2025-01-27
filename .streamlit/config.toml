@@ -1,11 +1,10 @@
 [theme]
 base = "light"
-primaryColor = "#4A90E2"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F7F7F7"
-textColor = "#333333"
-# Solo valores "sans serif", "serif" o "monospace" son válidos.
-font = "sans serif"
+primaryColor = "#4A90E2"        # Mantener - coincide con nuestro primary
+backgroundColor = "#FFFFFF"      # Mantener - coincide con nuestro background
+secondaryBackgroundColor = "#F7F7F7"  # Mantener - coincide con background_secondary
+textColor = "#333333"           # Mantener - coincide con nuestro text
+font = "sans serif"  
 
 [browser]
 gatherUsageStats = false
@@ -14,3 +13,6 @@ gatherUsageStats = false
 port = 8501
 fileWatcherType = "poll"
 headless = true
+
+# Agregar para evitar cambios automáticos de tema
+enableThemeWatcher = false
