@@ -59,7 +59,7 @@ def configurar_pantalla2():
     )
 
     # Copiar en español
-    st.subheader("Copiá el texto final.")
+    st.subheader("Copiá el texto final")
     boton_copiar(
         text=st.session_state["prompt_editado"], 
         label="📋 Copiar descripción"
