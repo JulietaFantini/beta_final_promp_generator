@@ -1,107 +1,90 @@
-# Project: AI Image Generator
+```markdown
+# Proyecto: Generador de Imágenes con IA
 
-This project is a **Streamlit**-based application that allows users to generate images by describing their ideas, leveraging AI tools for creating visual content.
+Este proyecto es una aplicación basada en **Streamlit** que permite a los usuarios generar imágenes describiendo sus ideas, utilizando herramientas de IA para crear contenido visual.
 
-## Project Structure
+## Estructura del Proyecto
 
-### Main Files
+### Archivos Principales
 
-1. **`app.py`**
+- **`app.py`**: Archivo principal que inicializa la aplicación y organiza el flujo entre pantallas. Configura el estado de sesión y redirige a los usuarios entre las pantallas definidas.
 
-   - The main file that initializes the application and organizes the screen flow.
-   - Configures session state and redirects users between defined screens.
+- **`pantalla1.py`**: Contiene la primera pantalla de la aplicación, donde se recopilan los parámetros esenciales para la generación de imágenes. Incluye funciones clave como:
+  - `generar_dropdown`: Crea selectores desplegables con opciones dinámicas.
+  - `filtrar_valores`: Filtra parámetros con valores predeterminados o inválidos.
+  - `parametros_obligatorios`: Recopila entradas esenciales del usuario.
 
-2. **`pantalla1.py`**
+- **`pantalla2.py`**: Configura la segunda pantalla, donde se muestra y edita el prompt generado. Funcionalidades principales:
+  - Mostrar el prompt generado.
+  - Permitir edición.
+  - Copiar el prompt al portapapeles y traducirlo a otros idiomas.
 
-   - Contains the first screen of the application, where essential parameters for image generation are collected.
-   - Enhances the user experience by validating inputs in real time, ensuring that users provide all necessary details before proceeding.
-   - Key functions:
-     - `generar_dropdown`: Creates dropdown selectors with dynamic options.
-     - `filtrar_valores`: Filters parameters with default or invalid values.
-     - `parametros_obligatorios`: Collects essential user input.
+- **`prompt_generator.py`**: Implementa la lógica para generar prompts detallados y coherentes basados en los parámetros proporcionados por el usuario. Utiliza estructuras como `TEMPLATE_BASE`, `TIPOS_MAPPING` y `PROPOSITOS_MAPPING` para personalizar los prompts.
 
-3. **`pantalla2.py`**
+### Archivos de Configuración y Estilo
 
-   - Sets up the second screen of the application, where the generated prompt based on user input is displayed and edited.
-   - Main functionalities:
-     - Display the generated prompt.
-     - Allow editing.
-     - Copy the prompt to the clipboard and translate it to other languages.
+- **`config.toml`**: Contiene configuraciones visuales del tema (colores, fondo, fuentes) y del servidor (puerto, modo headless, etc.).
 
-4. **`prompt_generator.py`**
+- **`style_config.py`**: Define estilos personalizados, como colores y tipografías, mediante CSS. Aborda desafíos relacionados con la personalización del diseño.
 
-   - Implements the logic for generating detailed and coherent prompts based on user input parameters.
-   - Uses structures like `TEMPLATE_BASE`, `TIPOS_MAPPING`, and `PROPOSITOS_MAPPING` to customize prompts.
+## Requisitos
 
-### Configuration and Style Files
+- **Python 3.8 o superior**
+- Dependencias listadas en `requirements.txt`:
+  ```plaintext
+  streamlit==1.41.1
+  googletrans==4.0.0-rc1
+  pandas==2.2.3
+  numpy==2.2.1
+  requests==2.32.3
+  pillow==11.1.0
+  ```
 
-1. **`config.toml`**
+## Instalación
 
-   - Contains visual theme configurations, such as primary colors, background, and fonts.
-   - Server configuration (port, headless mode, etc.).
-
-2. **`styles.css`**
-
-   - Defines custom styles for the application, including global CSS variables for colors, fonts, and spacing.
-   - Applies styles to elements like buttons, text inputs, and headers.
-
-3. **`style_config.py`**
-
-   - Provides utilities or configurations related to visual style.
-   - Still requires verification to determine its specific functionality.
-
-### Other Files
-
-1. **`pantalla1.py`** and **`pantalla2.py`**
-   - Already validated and functional according to the latest confirmation.
-
-## Requirements
-
-- **Python 3.8 or higher**
-- Dependencies listed in `requirements.txt`
-
-## Installation
-
-1. Clone the repository:
+1. Clona el repositorio:
    ```bash
    git clone https://github.com/JulietaFantini/beta_final_promp_generator.git
    ```
-2. Create and activate a virtual environment:
+2. Crea y activa un entorno virtual:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
    ```
-3. Install dependencies:
+3. Instala las dependencias:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Features
+## Características
 
-- **Spanish-to-English Translation**: The application includes functionality to translate generated prompts from Spanish to English, ensuring flexibility for a broader audience.
-- **Real-Time Validations**: Ensures that all required inputs are provided before moving to the next screen, reducing user errors.
+- **Traducción de Español a Inglés**: Traduce los prompts generados para garantizar flexibilidad en una audiencia más amplia.
+- **Validaciones en Tiempo Real**: Asegura que se proporcionen todas las entradas necesarias antes de avanzar a la siguiente pantalla, reduciendo errores del usuario.
 
-## Usage
+## Uso
 
-1. Run the application:
+1. Ejecuta la aplicación:
    ```bash
    streamlit run app.py
    ```
-2. Navigate through the screens to generate and customize prompts.
+2. Navega por las pantallas para generar y personalizar prompts.
 
-## Customization
+## Personalización
 
-- To modify the visual theme, edit the `config.toml` file.
-- Adjust global styles in `styles.css` to customize interface elements.
+- Para modificar el tema visual, edita el archivo `config.toml`.
+- Ajusta los estilos globales en `style_config.py` para personalizar los elementos de la interfaz.
 
-## Contribution
+## Contribución
 
-1. Create a branch for your changes:
+1. Crea una rama para tus cambios:
    ```bash
-   git checkout -b feature/new-functionality
+   git checkout -b feature/nueva-funcionalidad
    ```
-2. Commit your changes and submit a pull request.
+2. Realiza tus cambios y envía un pull request.
 
-## Credits
+## Créditos
 
-This project was developed to explore the integration of AI with interactive interfaces, focusing on personalized image generation through detailed prompts.
+Este proyecto fue desarrollado por **Julieta Fantini** como trabajo final integrador de la certificación en IA generativa de **Mundos E**. Para consultas y feedback, podés contactarme a través de **julietafantini@gmail.com**.
+
+Este proyecto explora la integración de la IA con interfaces interactivas, enfocándose en la generación personalizada de imágenes mediante prompts detallados.
+```
